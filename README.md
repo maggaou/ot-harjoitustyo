@@ -61,3 +61,7 @@ Numbered list:
 
 Tehty vielä muutoksia paikallisesti
 
+## Tehtävä 17
+
+Paikallinen muutos - ei pushattu
+
