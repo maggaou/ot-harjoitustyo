@@ -65,3 +65,5 @@ Tehty vielä muutoksia paikallisesti
 
 Paikallinen muutos - ei pushattu
 
+Tehty tähän muutos
+
