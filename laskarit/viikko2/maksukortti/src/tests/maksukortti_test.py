@@ -56,3 +56,19 @@ class TestMaksukortti(unittest.TestCase):
         kortti.syo_maukkaasti()
 
         self.assertEqual(kortti.saldo_euroina(), 0)
+
+    def test_syo_maukkaasti_palauttaa_false_jos_rahat_ei_riita(self):
+        kortti = Maksukortti(300)
+
+        self.assertEqual(kortti.syo_maukkaasti(), False)
+
+    def test_syo_maukkaasti_palauttaa_true_jos_rahat_riittavat(self):
+        self.assertEqual(self.kortti.syo_maukkaasti(), True)
+
+    def test_syo_edullisesti_palauttaa_false_jos_rahat_ei_riita(self):
+        kortti = Maksukortti(100)
+
+        self.assertEqual(kortti.syo_edullisesti(), False)
+
+    def test_syo_edullisesti_palauttaa_true_jos_rahat_riittavat(self):
+        self.assertEqual(self.kortti.syo_edullisesti(), True)

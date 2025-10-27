@@ -11,10 +11,16 @@ class Maksukortti:
     def syo_edullisesti(self):
         if self.saldo >= EDULLINEN:
             self.saldo -= EDULLINEN
+            return True
+        else:
+            return False
 
     def syo_maukkaasti(self):
         if self.saldo >= MAUKAS:
             self.saldo -= MAUKAS
+            return True
+        else:
+            return False
 
     def lataa_rahaa(self, maara):
         if maara < 0:
