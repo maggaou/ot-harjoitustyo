@@ -63,7 +63,7 @@ class TestKassapaate(unittest.TestCase):
         vaihtoraha = self.kassapaate.syo_edullisesti_kateisella(summa)
         self.assertEqual(vaihtoraha, summa)
 
-    def test_maukkaasti_kateisella_jos_maksu_ei_ole_riittava_niin_palauta_annettu_summa(self):
+    def test_syo_maukkaasti_kateisella_jos_maksu_ei_ole_riittava_niin_palauta_annettu_summa(self):
         summa = 1
         vaihtoraha = self.kassapaate.syo_maukkaasti_kateisella(summa)
         self.assertEqual(vaihtoraha, summa)
