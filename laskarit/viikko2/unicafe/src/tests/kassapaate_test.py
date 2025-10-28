@@ -80,3 +80,11 @@ class TestKassapaate(unittest.TestCase):
         palautus = self.kassapaate.syo_maukkaasti_kortilla(self.kortti_paljon_rahaa)
         self.assertEqual(palautus, True)
         self.assertEqual(self.kortti_paljon_rahaa.saldo_euroina(), 100-4.0)
+
+    def test_syo_edullisesti_kortilla_jos_kortilla_on_katetta_niin_kasvata_lounaiden_maaraa(self):
+        self.kassapaate.syo_edullisesti_kortilla(self.kortti_paljon_rahaa)
+        self.assertEqual(self.kassapaate.edulliset, 1)
+
+    def test_syo_maukkaasti_kortilla_jos_kortilla_on_katetta_niin_kasvata_lounaiden_maaraa(self):
+        self.kassapaate.syo_maukkaasti_kortilla(self.kortti_paljon_rahaa)
+        self.assertEqual(self.kassapaate.maukkaat, 1)
