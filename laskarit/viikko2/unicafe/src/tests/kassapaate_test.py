@@ -1,9 +1,12 @@
 import unittest
 from kassapaate import Kassapaate
+from maksukortti import Maksukortti
 
 class TestKassapaate(unittest.TestCase):
     def setUp(self):
         self.kassapaate = Kassapaate()
+        self.kortti_paljon_rahaa = Maksukortti(100*100)
+        self.kortti_vahan_rahaa = Maksukortti(0)
 
     def test_luotu_kassapaate_on_olemassa(self):
         self.assertNotEqual(self.kassapaate, None)
@@ -67,3 +70,13 @@ class TestKassapaate(unittest.TestCase):
         summa = 1
         vaihtoraha = self.kassapaate.syo_maukkaasti_kateisella(summa)
         self.assertEqual(vaihtoraha, summa)
+
+    def test_syo_edullisesti_kortilla_jos_kortilla_on_katetta_niin_tee_veloitus_kortilta_ja_palauta_true(self):
+        palautus = self.kassapaate.syo_edullisesti_kortilla(self.kortti_paljon_rahaa)
+        self.assertEqual(palautus, True)
+        self.assertEqual(self.kortti_paljon_rahaa.saldo_euroina(), 100-2.4)
+
+    def test_syo_maukkaasti_kortilla_jos_kortilla_on_katetta_niin_tee_veloitus_kortilta_ja_palauta_true(self):
+        palautus = self.kassapaate.syo_maukkaasti_kortilla(self.kortti_paljon_rahaa)
+        self.assertEqual(palautus, True)
+        self.assertEqual(self.kortti_paljon_rahaa.saldo_euroina(), 100-4.0)
