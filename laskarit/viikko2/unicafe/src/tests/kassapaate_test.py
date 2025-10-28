@@ -13,3 +13,7 @@ class TestKassapaate(unittest.TestCase):
 
     def test_luodun_kassapaatteen_rahamaara_on_1000euroa(self):
         self.assertEqual(self.kassapaate.kassassa_rahaa_euroina(), 1000)
+
+    def test_luodun_kassapaatteen_lounaiden_lukumaara_on_nolla(self):
+        lounaat_lkm = self.kassapaate.edulliset + self.kassapaate.maukkaat
+        self.assertEqual(lounaat_lkm, 0)
