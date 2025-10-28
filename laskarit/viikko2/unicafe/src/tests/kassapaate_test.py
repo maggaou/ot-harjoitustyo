@@ -33,3 +33,11 @@ class TestKassapaate(unittest.TestCase):
     def test_syo_maukkaasti_kateisella_jos_maksu_ei_ole_rittava_niin_lounaiden_maara_ei_muutu(self):
         self.kassapaate.syo_maukkaasti_kateisella(200)
         self.assertEqual(self.kassapaate.maukkaat, 0)
+
+    def test_syo_edullisesti_kateisella_jos_maksu_on_riittava_niin_kassan_rahamaara_kasvaa(self):
+        self.kassapaate.syo_edullisesti_kateisella(240)
+        self.assertEqual(self.kassapaate.kassassa_rahaa_euroina(), 1000+2.4)
+
+    def test_syo_maukkaasti_kateisella_jos_maksu_on_riittava_niin_kassan_rahamaara_kasvaa(self):
+        self.kassapaate.syo_maukkaasti_kateisella(400)
+        self.assertEqual(self.kassapaate.kassassa_rahaa_euroina(), 1000+4.0)
