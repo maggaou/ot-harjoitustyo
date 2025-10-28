@@ -27,3 +27,7 @@ class TestMaksukortti(unittest.TestCase):
     def test_ota_rahaa_ei_muuta_kortin_saldoa_jos_kortilla_ei_ole_katetta(self):
         self.maksukortti.ota_rahaa(10000)
         self.assertEqual(self.maksukortti.saldo_euroina(), 10.0)
+
+    def test_lataa_rahaa_muuttaa_saldoa(self):
+        self.maksukortti.lataa_rahaa(200)
+        self.assertEqual(self.maksukortti.saldo_euroina(), 12.0)
