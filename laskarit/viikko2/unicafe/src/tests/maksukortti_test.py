@@ -10,3 +10,6 @@ class TestMaksukortti(unittest.TestCase):
 
     def test_alkusaldo_on_oikein(self):
         self.assertEqual(self.maksukortti.saldo_euroina(), 10)
+
+    def test_kortin_str_metodi_on_toimiva(self):
+        self.assertEqual(str(self.maksukortti), "Kortilla on rahaa 10.00 euroa")
