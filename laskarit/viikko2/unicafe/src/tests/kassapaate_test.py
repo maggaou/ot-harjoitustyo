@@ -17,3 +17,11 @@ class TestKassapaate(unittest.TestCase):
     def test_luodun_kassapaatteen_lounaiden_lukumaara_on_nolla(self):
         lounaat_lkm = self.kassapaate.edulliset + self.kassapaate.maukkaat
         self.assertEqual(lounaat_lkm, 0)
+
+    def test_syo_edullisesti_kateisella_jos_maksu_on_riittava_niin_lounaiden_maara_kasvaa(self):
+        self.kassapaate.syo_edullisesti_kateisella(240)
+        self.assertEqual(self.kassapaate.edulliset, 1) 
+
+    def test_syo_maukkaasti_kateisella_jos_maksu_on_riittava_niin_lounaiden_maara_kasvaa(self):
+        self.kassapaate.syo_maukkaasti_kateisella(400)
+        self.assertEqual(self.kassapaate.maukkaat, 1)
