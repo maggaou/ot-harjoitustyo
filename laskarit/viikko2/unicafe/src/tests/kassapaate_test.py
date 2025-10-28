@@ -112,3 +112,17 @@ class TestKassapaate(unittest.TestCase):
     def test_syo_maukkaasti_kortilla_jos_kortilla_ei_ole_katetta_niin_palauta_false(self):
         palauta = self.kassapaate.syo_maukkaasti_kortilla(self.kortti_vahan_rahaa)
         self.assertEqual(palauta, False)
+
+    def test_syo_edullisesti_kortilla_kassan_rahamaara_ei_muutu(self):
+        self.kassapaate.syo_edullisesti_kortilla(self.kortti_paljon_rahaa)
+        self.assertEqual(self.kassapaate.kassassa_rahaa_euroina(), 1000)
+
+        self.kassapaate.syo_edullisesti_kortilla(self.kortti_vahan_rahaa)
+        self.assertEqual(self.kassapaate.kassassa_rahaa_euroina(), 1000)
+
+    def test_syo_maukkaasti_kortilla_kassan_rahamaara_ei_muutu(self):
+        self.kassapaate.syo_maukkaasti_kortilla(self.kortti_paljon_rahaa)
+        self.assertEqual(self.kassapaate.kassassa_rahaa_euroina(), 1000)
+
+        self.kassapaate.syo_maukkaasti_kortilla(self.kortti_vahan_rahaa)
+        self.assertEqual(self.kassapaate.kassassa_rahaa_euroina(), 1000)
