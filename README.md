@@ -5,7 +5,7 @@
 
 ## Dokumentaatio
 - [Vaatimusmäärittely](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
-
+- [Työaikakirjanpito](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/tyoaikakirjanpito.md)
 
 ## Tässä on otsikko
 
