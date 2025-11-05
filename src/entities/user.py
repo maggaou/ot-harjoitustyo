@@ -8,8 +8,8 @@ class User:
         password: salasana
     """
 
-    def __init__(self, nimi, seura, username, password):
-        self.nimi = nimi
-        self.seura = seura
+    def __init__(self, name, team, username, password):
+        self.name = name
+        self.team = team
         self.username = username
         self.password = password
