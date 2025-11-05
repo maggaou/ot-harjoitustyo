@@ -2,13 +2,20 @@ from sys import platform
 from invoke import task
 
 @task
+def database(ctx):
+    ctx.run("python src/initialize_database.py", pty=True)
+
+@task(database)
+def build(ctx):
+    pass
+
+@task
 def start(ctx):
     print("Nothing to run yet")
 
 @task
 def test(ctx):
-    print("Nothing to test yet")
-    ctx.run("coverage --help", pty=True)
+    ctx.run("pytest src", pty=True)
 
 @task(test)
 def test_and_report(ctx):
