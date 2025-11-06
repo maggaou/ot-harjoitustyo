@@ -36,7 +36,7 @@ class UserRepository():
         cursor = self._connection.cursor()
 
         cursor.execute(
-            "insert into Users (name, team, username, password) values (?, ?, ?, ?)",
+            "INSERT INTO Users (name, team, username, password) VALUES (?, ?, ?, ?)",
             (user.name, user.team, user.username, user.password)
         )
 
@@ -53,17 +53,39 @@ class UserRepository():
 
         cursor = self._connection.cursor()
 
-        cursor.execute("select * from Users")
+        cursor.execute("SELECT * FROM Users")
 
         rows = cursor.fetchall()
 
         users = list()
         for row in rows:
-            if row:
-                u = User(name=row["name"], team=row["team"], 
-                        username=row["username"], password=row["password"])
-                users.append(u)
-        
+            u = create_user_by_row(row)
+            users.append(u)
         return users
+
+    def find_by_username(self, username):
+        """Hae valmentaja käyttäjänimellä
+        
+        Returns:
+            User-olio jos kyseinen valmentaja löytyy, muuten None
+        """
+        
+        cursor = self._connection.cursor()
+
+        cursor.execute(
+            "SELECT * FROM Users WHERE username =?",(username,)
+        )
+
+        row = cursor.fetchone()
+
+        return create_user_by_row(row)
+
+def create_user_by_row(row):
+    if row:
+        u = User(name=row["name"], team=row["team"],
+                 username=row["username"], password=row["password"])
+    else:
+        u = None
+    return u
 
 USER_REPOSITORY = UserRepository(get_database_connection())

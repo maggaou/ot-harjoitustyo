@@ -2,8 +2,8 @@ class User:
     """Valmentajan tiedot
 
     Attributes:
-        nimi: valmentajan koko nimi
-        seura: valmentajan seura
+        name: valmentajan koko nimi
+        team: valmentajan seura
         username: käyttäjätunnus
         password: salasana
     """
@@ -13,3 +13,6 @@ class User:
         self.team = team
         self.username = username
         self.password = password
+
+    def __eq__(self, other):
+        return self.username == other.username
