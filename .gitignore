@@ -4,4 +4,3 @@ __pycache__
 htmlcov
 .coveragerc
 data/database.sqlite
-data/test-database.sqlite
