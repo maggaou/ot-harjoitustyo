@@ -6,7 +6,7 @@ from initialize_database import initialize_database
 
 class TestUserRepository(unittest.TestCase):
     def setUp(self):
-        initialize_database()
+        # oletus että tietokanta on alustettu
         self.user_repository = USER_REPOSITORY
         self.user_repository.delete_all()
         self.u1 = User(name="Roope Koivisto", team="Nurmon Voima",
