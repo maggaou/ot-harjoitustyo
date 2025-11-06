@@ -5,9 +5,9 @@ from invoke import task
 def database(ctx):
     ctx.run("python src/initialize_database.py", pty=True)
 
-@task(database)
+@task
 def build(ctx):
-    pass
+    ctx.run("python src/build.py")
 
 @task
 def start(ctx):
