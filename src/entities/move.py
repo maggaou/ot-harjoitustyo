@@ -1,7 +1,7 @@
 import uuid
 
 class Move():
-    """ Yksittäinen painiliike
+    """ Yksittäinen painiliike.
 
     Attributes:
         name: liikkeen nimi
@@ -17,7 +17,7 @@ class Move():
 
     def __init__(self, content, name=None, style=None, age_group=None, difficulty=None, orginal_creator=None, 
                  date_submitted=None, picture_link=None, reference=None, id=None):
-        """Luokan konstruktori 
+        """Luokan konstruktori.
 
         Args:
             name: liikkeen nimi
