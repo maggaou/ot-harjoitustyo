@@ -77,3 +77,43 @@ class TestMovesService(unittest.TestCase):
 
         self.assertEqual(len(moves), 1)
         self.assertEqual(moves[0].content, "my content")
+    
+    def test_get_logged_in_user(self):
+        self.login_user(self.u1)
+
+        hello = self.moves_service.get_logged_in_user()
+
+        self.assertEqual(hello, self.u1)
+
+    def test_create_new_user_with_non_existing_username(self):
+        username = self.u1.username
+        password = self.u1.password
+
+        self.moves_service.create_new_user(username, password)
+
+        users = self.moves_service.get_all_users()
+
+        self.assertEqual(len(users), 1)
+        self.assertEqual(users[0].username, username)
+
+    def test_create_new_user_with_existing_username(self):
+        username = self.u1.username
+
+        self.moves_service.create_new_user(username, "1234")
+
+        self.assertRaises(UsernameExistsError, self.moves_service.create_new_user, username, '')
+
+    def test_login_with_valid_username_and_password(self):
+        self.moves_service.create_new_user(self.u1.username, self.u1.password)
+
+        u = self.moves_service.login(self.u1.username, self.u1.password)
+
+        self.assertEqual(u, self.u1)
+
+    def test_login_with_invalid_username_and_password(self):
+        self.assertRaises(InvalidCredentialsError, self.moves_service.login, 'jeihoo', '')
+
+    def test_logout_sets_active_user_to_none(self):
+        self.login_user(self.u1)
+        self.moves_service.logout()
+        self.assertIsNone(self.moves_service.get_logged_in_user())
