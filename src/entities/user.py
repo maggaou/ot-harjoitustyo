@@ -8,7 +8,7 @@ class User:
         password: salasana
     """
 
-    def __init__(self, name, team, username, password):
+    def __init__(self, name=None, team=None, username=None, password=None):
         self.name = name
         self.team = team
         self.username = username

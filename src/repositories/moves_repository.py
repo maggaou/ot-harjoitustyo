@@ -31,6 +31,9 @@ class MovesRepository:
         content = metadata.pop("content")
         
         caput.write_contents(file_path, content, metadata)
+
+        return move
+    
     def find_all(self):
         """Palauttaa kaikki liikkeet.
 
@@ -54,6 +57,7 @@ class MovesRepository:
         if not path.exists():
             path.mkdir()
 
+    
 
 
 MOVES_REPOSITORY = MovesRepository(MOVES_PATH)

@@ -15,7 +15,7 @@ class Move():
         reference: ulkoinen linkki
     """
 
-    def __init__(self, content, name=None, style=None, age_group=None, difficulty=None, orginal_creator=None, 
+    def __init__(self, content, name=None, style=None, age_group=None, difficulty=None, original_creator=None, 
                  date_submitted=None, picture_link=None, reference=None, id=None):
         """Luokan konstruktori.
 
@@ -39,7 +39,7 @@ class Move():
         self.style = style
         self.age_group = age_group
         self.difficulty = difficulty
-        self.orginal_creator = orginal_creator
+        self.original_creator = original_creator
         self.date_submitted = date_submitted
         self.content = content
         self.picture_link = picture_link
