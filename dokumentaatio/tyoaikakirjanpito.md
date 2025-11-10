@@ -13,3 +13,4 @@
 | 05.11. | 444        | (7.5h) Tietokantayhteyden toteutus (sqlite3) ja tämän kokeilu User‑objekteilla. Myös joitakin testejä kirjoitettu User‑objektien tallennukseen liittyen |
 | 06.11. | 380        | (6.5h) Tiedostoyhteyden alustava toteutus Move‑objekteilla. Metadatan tallennus ei ole vielä toteutettu.                                                |
 | 07.11. | 110        | (1h50min) Sopivan paketin etsintä PyPistä / tutustuminen caput pakettiin                                                                                |
+| 10.11. | 362        | (6.0h) caput-paketin integrointi, moves_repository lisää testejä, MovesService toteutus testeineen. MovesServicen toiminta on vielä yksinkertainen (puuttuu lisätoimintoja) |
