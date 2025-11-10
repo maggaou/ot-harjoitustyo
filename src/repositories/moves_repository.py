@@ -1,11 +1,10 @@
 from pathlib import Path
-
 from config import MOVES_PATH
 from entities.move import Move
-
+import caput
 
 class MovesRepository:
-    """Liikkeiden tallennus tekstitiedostoina
+    """Liikkeiden tallennus tekstitiedostoina.
     """
 
     def __init__(self, directory):
@@ -23,13 +22,17 @@ class MovesRepository:
             file.unlink()
 
     def create(self, move):
+        """Tallenna liike tiedostoihin.
+        """
         self.make_sure_that_directory_exists()
 
         file_path = Path(self.directory) / (move.id + ".md")
-        file_path.write_text(move.content, encoding="utf-8")
-
+        metadata = dict(move.__dict__)
+        content = metadata.pop("content")
+        
+        caput.write_contents(file_path, content, metadata)
     def find_all(self):
-        """Palauttaa kaikki liikkeet
+        """Palauttaa kaikki liikkeet.
 
         Returns:
             Lista (Move)
@@ -38,8 +41,11 @@ class MovesRepository:
         moves = list()
 
         for file in Path(self.directory).glob("*.md"):
-            content = file.read_text(encoding="utf-8")
-            moves.append(Move(content = content))
+            content = caput.read_contents(file)
+            metadata = caput.read_config(file)
+            all = dict(metadata)
+            all["content"] = content
+            moves.append(Move(**all))
 
         return moves
 
@@ -47,6 +53,7 @@ class MovesRepository:
         path = Path(self.directory)
         if not path.exists():
             path.mkdir()
+
 
 
 MOVES_REPOSITORY = MovesRepository(MOVES_PATH)
