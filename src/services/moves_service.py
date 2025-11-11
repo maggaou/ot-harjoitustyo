@@ -10,7 +10,7 @@ class InvalidCredentialsError(Exception):
 class UsernameExistsError(Exception):
     pass
 
-class MoveService:
+class MovesService:
     """Sovelluslogiikka."""
 
     def __init__(
@@ -119,3 +119,5 @@ class MoveService:
         self._user = user
 
         return self._user_repository.create(user)
+
+MOVES_SERVICE = MovesService()

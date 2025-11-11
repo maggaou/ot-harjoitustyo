@@ -2,7 +2,7 @@ import unittest
 from entities.user import User
 from entities.move import Move
 from services.moves_service import (
-    MoveService, 
+    MovesService, 
     InvalidCredentialsError, 
     UsernameExistsError
 )
@@ -47,7 +47,7 @@ class FakeUserRepository:
 
 class TestMovesService(unittest.TestCase):
     def setUp(self):
-        self.moves_service = MoveService(FakeMovesRepository(), FakeUserRepository())
+        self.moves_service = MovesService(FakeMovesRepository(), FakeUserRepository())
 
         self.m1 = Move(content="mörkö")
         self.m2 = Move(content="pöö")
