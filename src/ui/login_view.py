@@ -47,7 +47,7 @@ class LoginView:
         )
 
         create_user_button = ttk.Button(
-            master = self._farme,
+            master = self._frame,
             text = "Create user",
             command = self._handle_show_create_user_view
         )

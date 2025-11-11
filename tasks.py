@@ -11,7 +11,7 @@ def build(ctx):
 
 @task
 def start(ctx):
-    print("Nothing to run yet")
+    ctx.run("python3 src/index.py", pty=True)
 
 @task
 def test(ctx):
