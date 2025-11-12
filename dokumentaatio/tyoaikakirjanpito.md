@@ -15,5 +15,5 @@
 | 07.11. | 110        | (1h50min) Sopivan paketin etsintä PyPistä / tutustuminen caput pakettiin                                                                                |
 | 10.11. | 362        | (6.0h) caput-paketin integrointi, moves_repository lisää testejä, MovesService toteutus testeineen. MovesServicen toiminta on vielä yksinkertainen (puuttuu lisätoimintoja) |
 | 10.11. | 30         | (0.5h) tkinter tutustuminen (jatkui myös seuraavana päivänä)                                                                                                                |
-| 11.11. | 308        | (5.0h) Alustava käyttöliittymän toteutus. Tällä hetkellä käyttöliittymä ei vielä toimi.                                                                                     |
-                                                 |
+| 11.11. | 308        | (5.0h) Alustava käyttöliittymän toteutus. Tällä hetkellä käyttöliittymä ei vielä toimi.                                                                                     |                                                 |
+| 12.11. | 210        | (3.5h) Käyttöliittymän koodin täydennys. Käyttöliittymä on nyt toimiva. Lisäksi tehty kaikki viikon 3 harjoitustyöhön liittyvät tehtävät (mm. lisätty changelog).           |
