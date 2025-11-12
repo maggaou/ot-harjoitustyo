@@ -84,7 +84,7 @@ class LoginView:
         self._password_entry.grid(padx=10, pady=10)
 
     def pack(self):
-        self._frame.pack(fill=constants.x)
+        self._frame.pack(fill=constants.X)
 
     def destroy(self):
         self._frame.destroy()
