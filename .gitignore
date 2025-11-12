@@ -3,9 +3,5 @@ __pycache__
 .coverage
 htmlcov
 data/database.sqlite
-<<<<<<< HEAD
 data/test-my-moves/
 data/my-moves/
-=======
-data/test-database.sqlite
->>>>>>> parent of 38cd36b (alustettu tietokanta testejä varten)
