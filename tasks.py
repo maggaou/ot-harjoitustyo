@@ -21,11 +21,15 @@ def start(ctx):
 def test(ctx):
     ctx.run("pytest src", pty=True)
 
-@task(test)
-def test_and_report(ctx):
+@task
+def coverage(ctx):
+    ctx.run("coverage run --branch -m pytest src", pty=True)
+
+@task(coverage)
+def coverage_report(ctx):
     ctx.run("coverage html", pty=True)
     file = "htmlcov/index.html"
     if platform == "darwin":
-        print("macOS test report " + file)
+        ctx.run("open " + file, pty=True)
     if platform == "linux":
         print("linux test report " + file)
