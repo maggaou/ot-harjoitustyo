@@ -5,3 +5,4 @@ htmlcov
 .coveragerc
 data/database.sqlite
 data/test-my-moves/
+data/my-moves/

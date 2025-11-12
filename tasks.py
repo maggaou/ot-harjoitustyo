@@ -2,8 +2,12 @@ from sys import platform
 from invoke import task
 
 @task
-def database(ctx):
+def reset_database(ctx):
     ctx.run("python src/initialize_database.py", pty=True)
+
+@task
+def show_users(ctx):
+    ctx.run('sqlite3 data/database.sqlite "SELECT * FROM Users;"', pty=True)
 
 @task
 def build(ctx):
