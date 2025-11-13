@@ -17,3 +17,4 @@
 | 10.11. | 30         | (0.5h) tkinter tutustuminen (jatkui myös seuraavana päivänä)                                                                                                                |
 | 11.11. | 308        | (5.0h) Alustava käyttöliittymän toteutus. Tällä hetkellä käyttöliittymä ei vielä toimi.                                                                                     |                                                 |
 | 12.11. | 210        | (3.5h) Käyttöliittymän koodin täydennys. Käyttöliittymä on nyt toimiva. Lisäksi tehty kaikki viikon 3 harjoitustyöhön liittyvät tehtävät (mm. lisätty changelog).           |
+| 13.11. | 45         | Testattu linux toimivuus                                                                                                                                                    |
