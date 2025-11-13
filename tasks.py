@@ -34,3 +34,10 @@ def coverage_report(ctx):
         ctx.run("open " + file, pty=True)
     if platform == "linux":
         call(("xdg-open", file))
+
+@task
+def repo_github(ctx):
+    if platform == "darwin":
+        ctx.run("open 'https://github.com/maggaou/ot-harjoitustyo/'", pty=True)
+    if platform == "linux":
+        call(("xdg-open", 'https://github.com/maggaou/ot-harjoitustyo/'))
