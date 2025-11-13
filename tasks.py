@@ -1,5 +1,6 @@
 from sys import platform
 from invoke import task
+from subprocess import call
 
 @task
 def reset_database(ctx):
@@ -32,4 +33,4 @@ def coverage_report(ctx):
     if platform == "darwin":
         ctx.run("open " + file, pty=True)
     if platform == "linux":
-        print("linux test report " + file)
+        call(("xdg-open", file))
