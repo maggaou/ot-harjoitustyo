@@ -18,3 +18,4 @@
 | 11.11. | 308        | (5.0h) Alustava käyttöliittymän toteutus. Tällä hetkellä käyttöliittymä ei vielä toimi.                                                                                     |                                                 |
 | 12.11. | 210        | (3.5h) Käyttöliittymän koodin täydennys. Käyttöliittymä on nyt toimiva. Lisäksi tehty kaikki viikon 3 harjoitustyöhön liittyvät tehtävät (mm. lisätty changelog).           |
 | 13.11. | 45         | Testattu linux toimivuus                                                                                                                                                    |
+| 17.11. | 115        | (2h) Tutustuminen pylinttiin ja tehty pylintin ehdottamia koodikorjauksia. Toistaiseksi Move-luokassa on liian paljon parametreja                                           |
