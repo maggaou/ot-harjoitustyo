@@ -5,7 +5,7 @@ from entities.user import User
 
 
 class UserRepository():
-    
+
     def __init__(self, connection):
         """Luokan konstruktori
 
@@ -22,7 +22,7 @@ class UserRepository():
         cursor.execute("delete from Users")
 
         self._connection.commit()
-    
+
     def create(self, user):
         """Käyttäjän tallennus (Users-taulun schema)
         
@@ -43,7 +43,7 @@ class UserRepository():
         self._connection.commit()
 
         return user
-    
+
     def find_all(self):
         """Palauttaa kaikki valmentajat
         
@@ -69,7 +69,7 @@ class UserRepository():
         Returns:
             User-olio jos kyseinen valmentaja löytyy, muuten None
         """
-        
+
         cursor = self._connection.cursor()
 
         cursor.execute(
