@@ -15,8 +15,9 @@ class Move():
         reference: ulkoinen linkki
     """
 
-    def __init__(self, content, name=None, style=None, age_group=None, difficulty=None, original_creator=None,
-                 date_submitted=None, picture_link=None, reference=None, id=None):
+    def __init__(self, content, name=None, style=None, age_group=None,
+                 difficulty=None, original_creator=None, date_submitted=None,
+                 picture_link=None, reference=None, uid=None):
         """Luokan konstruktori.
 
         Args:
@@ -45,12 +46,9 @@ class Move():
         self.picture_link = picture_link
         self.reference = reference
 
-        self.id = id or str(uuid.uuid4())
-
+        self.id = uid or str(uuid.uuid4())
 
     def __eq__(self, other):
-        if type(other) != Move:
+        if not isinstance(other, Move):
             return False
-        else:
-            return other.id == self.id
-
+        return other.id == self.id
