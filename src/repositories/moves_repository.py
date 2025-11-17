@@ -29,11 +29,11 @@ class MovesRepository:
         file_path = Path(self.directory) / (move.id + ".md")
         metadata = dict(move.__dict__)
         content = metadata.pop("content")
-        
+
         caput.write_contents(file_path, content, metadata)
 
         return move
-    
+
     def find_all(self):
         """Palauttaa kaikki liikkeet.
 
@@ -57,7 +57,7 @@ class MovesRepository:
         if not path.exists():
             path.mkdir()
 
-    
+
 
 
 MOVES_REPOSITORY = MovesRepository(MOVES_PATH)

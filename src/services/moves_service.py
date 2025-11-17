@@ -43,7 +43,7 @@ class MovesService:
 
         move = Move(**args)
         return self._moves_repository.create(move)
-    
+
     def return_all(self):
         """Palauttaa kaikki liikkeet.
         
@@ -51,7 +51,7 @@ class MovesService:
             Palauttaa kaikki ohjelmaan tallennetut liikkeet.
         """
         return self._moves_repository.find_all()
-    
+
     def login(self, username, password):
         """Sisäänkirjautuminen.
         
@@ -73,7 +73,7 @@ class MovesService:
         self._user = user
 
         return user
-    
+
     def get_logged_in_user(self):
         """Palauttaa tällä hetkellä kirjautuneen käyttäjän.
 
@@ -81,7 +81,7 @@ class MovesService:
             Kirjautunut käyttäjä (User-olio).
         """
         return self._user
-    
+
     def get_all_users(self):
         """Palauttaa kaikki ohjelmaan tallennetut käyttäjät.
 
@@ -89,7 +89,7 @@ class MovesService:
             Lista (User-oliot).
         """
         return self._user_repository.find_all()
-    
+
     def logout(self):
         """Kirjaa käyttäjän ulos."""
         self._user = None
@@ -115,7 +115,7 @@ class MovesService:
             raise UsernameExistsError(f"Username {username} is already created")
 
         user = User(name=name,team=team,username=username, password=password)
-        
+
         self._user = user
 
         return self._user_repository.create(user)
