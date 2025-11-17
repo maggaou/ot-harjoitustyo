@@ -41,3 +41,7 @@ def repo_github(ctx):
         ctx.run("open 'https://github.com/maggaou/ot-harjoitustyo/'", pty=True)
     if platform == "linux":
         call(("xdg-open", 'https://github.com/maggaou/ot-harjoitustyo/'))
+
+@task
+def format_with_autopep8(ctx):
+    ctx.run("autopep8 --in-place --recursive src", pty=True)
