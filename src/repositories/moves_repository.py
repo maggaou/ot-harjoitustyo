@@ -1,7 +1,7 @@
 from pathlib import Path
+import caput
 from config import MOVES_PATH
 from entities.move import Move
-import caput
 
 class MovesRepository:
     """Liikkeiden tallennus tekstitiedostoina.
@@ -41,14 +41,14 @@ class MovesRepository:
             Lista (Move)
         """
         self.make_sure_that_directory_exists()
-        moves = list()
+        moves = []
 
         for file in Path(self.directory).glob("*.md"):
             content = caput.read_contents(file)
             metadata = caput.read_config(file)
-            all = dict(metadata)
-            all["content"] = content
-            moves.append(Move(**all))
+            args = dict(metadata)
+            args["content"] = content
+            moves.append(Move(**args))
 
         return moves
 
