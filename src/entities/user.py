@@ -15,6 +15,6 @@ class User:
         self.password = password
 
     def __eq__(self, other):
-        if (type(other) != User):
+        if not isinstance(other, User):
             return False
         return self.username == other.username
