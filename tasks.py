@@ -45,3 +45,7 @@ def repo_github(ctx):
 @task
 def format_with_autopep8(ctx):
     ctx.run("autopep8 --in-place --recursive src", pty=True)
+
+@task
+def clear_moves(ctx):
+    ctx.run("rm -f data/my-moves/*", pty=True)
