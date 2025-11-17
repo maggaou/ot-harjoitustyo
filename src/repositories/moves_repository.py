@@ -3,13 +3,14 @@ import caput
 from config import MOVES_PATH
 from entities.move import Move
 
+
 class MovesRepository:
     """Liikkeiden tallennus tekstitiedostoina.
     """
 
     def __init__(self, directory):
         """Luokan konstruktori
-        
+
         Args:
             directory: kansio johon tekstitiedostot tallennetaan
         """
@@ -56,8 +57,6 @@ class MovesRepository:
         path = Path(self.directory)
         if not path.exists():
             path.mkdir()
-
-
 
 
 MOVES_REPOSITORY = MovesRepository(MOVES_PATH)

@@ -4,11 +4,14 @@ from entities.move import Move
 from repositories.moves_repository import MOVES_REPOSITORY as default_moves_repository
 from repositories.user_repository import USER_REPOSITORY as default_user_repository
 
+
 class InvalidCredentialsError(Exception):
     pass
 
+
 class UsernameExistsError(Exception):
     pass
+
 
 class MovesService:
     """Sovelluslogiikka."""
@@ -17,9 +20,9 @@ class MovesService:
             self,
             moves_repository=default_moves_repository,
             user_repository=default_user_repository
-            ):
+    ):
         """Luokan konstruktori.
-        
+
         Args:
             moves_repository: 
                 Oletus MovesRepository-olio.
@@ -33,7 +36,7 @@ class MovesService:
 
     def create_move(self, **args):
         """Uuden liikkeen luonti.
-        
+
         Args:
             **args: liikkeen sisältö (content) ja mahdollinen metadata.
         Returns:
@@ -46,7 +49,7 @@ class MovesService:
 
     def return_all(self):
         """Palauttaa kaikki liikkeet.
-        
+
         Returns:
             Palauttaa kaikki ohjelmaan tallennetut liikkeet.
         """
@@ -54,7 +57,7 @@ class MovesService:
 
     def login(self, username, password):
         """Sisäänkirjautuminen.
-        
+
         Args:
             username: käyttäjänimi.
             password: salasana.
@@ -112,12 +115,14 @@ class MovesService:
         hi = self._user_repository.find_by_username(username)
 
         if hi:
-            raise UsernameExistsError(f"Username {username} is already created")
+            raise UsernameExistsError(
+                f"Username {username} is already created")
 
-        user = User(name=name,team=team,username=username, password=password)
+        user = User(name=name, team=team, username=username, password=password)
 
         self._user = user
 
         return self._user_repository.create(user)
+
 
 MOVES_SERVICE = MovesService()

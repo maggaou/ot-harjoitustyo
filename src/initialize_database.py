@@ -1,5 +1,6 @@
 from database_connection import get_database_connection
 
+
 def drop_tables(connection):
     """ Operaatio 1: poista taulut (Users)
 
@@ -14,6 +15,7 @@ def drop_tables(connection):
     """)
 
     connection.commit()
+
 
 def create_tables(connection):
     """Operaatio 2: taulujen luonti (Users)
@@ -35,6 +37,7 @@ def create_tables(connection):
 
     connection.commit()
 
+
 def initialize_database():
     """Tietokannan alustus (operaatiot 1 ja 2)"""
 
@@ -42,6 +45,7 @@ def initialize_database():
 
     drop_tables(connection)
     create_tables(connection)
+
 
 if __name__ == "__main__":
     initialize_database()

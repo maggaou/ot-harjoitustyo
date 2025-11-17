@@ -1,12 +1,13 @@
 from tkinter import ttk, StringVar, constants
 from services.moves_service import MOVES_SERVICE as moves_service, InvalidCredentialsError
 
+
 class LoginView:
     """Kirjautumisen näkymä."""
 
     def __init__(self, root, handle_login, handle_show_create_user_view):
         """Luokan konstruktori.
-        
+
         Args:
             root: tkinter ikkuna.
             handle_login: sisäänkirjautumisen toiminto.
@@ -30,9 +31,9 @@ class LoginView:
         self._error_variable = StringVar(self._frame)
 
         self._error_label = ttk.Label(
-            master = self._frame,
+            master=self._frame,
             textvariable=self._error_variable,
-            foreground = "red"
+            foreground="red"
         )
 
         self._error_label.grid(padx=10, pady=10)
@@ -41,18 +42,18 @@ class LoginView:
         self._initialize_password_field()
 
         login_button = ttk.Button(
-            master = self._frame,
-            text = "Login",
-            command = self._login_handler
+            master=self._frame,
+            text="Login",
+            command=self._login_handler
         )
 
         create_user_button = ttk.Button(
-            master = self._frame,
-            text = "Create user",
-            command = self._handle_show_create_user_view
+            master=self._frame,
+            text="Create user",
+            command=self._handle_show_create_user_view
         )
 
-        self._frame.grid_columnconfigure(0, weight=1, minsize = 500)
+        self._frame.grid_columnconfigure(0, weight=1, minsize=500)
 
         login_button.grid(padx=10, pady=10)
         create_user_button.grid(padx=10, pady=10)

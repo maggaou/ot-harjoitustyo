@@ -1,5 +1,6 @@
 import uuid
 
+
 class Move():
     """ Yksittäinen painiliike.
 

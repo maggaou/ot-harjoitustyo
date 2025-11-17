@@ -9,15 +9,15 @@ class TestUserRepository(unittest.TestCase):
         self.user_repository = USER_REPOSITORY
         self.user_repository.delete_all()
         self.u1 = User(name="Roope Koivisto", team="Nurmon Voima",
-                               username="roopeKoi", password="password1@")
+                       username="roopeKoi", password="password1@")
         self.u2 = User(name="Jenni Järvinen", team="Lappajärven Veikot",
-                               username="jenni1", password="-salasana-")
+                       username="jenni1", password="-salasana-")
 
     def test_create(self):
         self.user_repository.create(self.u1)
         users = self.user_repository.find_all()
 
-        self.assertEqual(len(users),1)
+        self.assertEqual(len(users), 1)
 
     def test_username_is_created_and_stored_correctly(self):
         self.user_repository.create(self.u1)
@@ -52,9 +52,9 @@ class TestUserRepository(unittest.TestCase):
         self.user_repository.create(self.u2)
         users = self.user_repository.find_all()
 
-        self.assertEqual(len(users),2)
-        self.assertEqual(users[0],self.u1)
-        self.assertEqual(users[1],self.u2)
+        self.assertEqual(len(users), 2)
+        self.assertEqual(users[0], self.u1)
+        self.assertEqual(users[1], self.u2)
 
     def test_find_by_username_returns_user_if_found(self):
         self.user_repository.create(self.u1)
@@ -69,7 +69,7 @@ class TestUserRepository(unittest.TestCase):
         u = self.user_repository.find_by_username("jeihou")
 
         self.assertEqual(u, None)
-    
+
     def test_find_all_returns_empty_list_after_delete_all(self):
         self.user_repository.create(self.u1)
         self.user_repository.create(self.u2)

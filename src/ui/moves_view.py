@@ -7,7 +7,7 @@ class MovesListView:
 
     def __init__(self, root, moves):
         """Luokan konstruktori.
-        
+
         Args:
             root: tkinter ikkuna yms.
             moves: lista näkymän liikkeistä
@@ -33,19 +33,20 @@ class MovesListView:
 
         item_frame.grid_columnconfigure(0, weight=1)
         item_frame.pack(fill=constants.X)
-        
+
     def pack(self):
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
         self._frame.destroy()
 
+
 class MovesView:
     """Liikkeiden listanäkymä ja muut toiminnot."""
 
     def __init__(self, root, handle_logout):
         """Luokan konstruktori.
-        
+
         Args:
             root: tkinter ikkuna yms.
             handle_logout: näkymä uloskirjautumisen jälkeen.
@@ -64,7 +65,7 @@ class MovesView:
 
     def destroy(self):
         self._frame.destroy()
-    
+
     def _logout_handler(self):
         moves_service.logout()
         self._handle_logout()
@@ -81,26 +82,26 @@ class MovesView:
         )
 
         self._moves_list_view.pack()
-    
+
     def _initialize_header(self):
         user_label = ttk.Label(
-            master = self._frame,
-            text = f"Logged in as {self._user.username}"
+            master=self._frame,
+            text=f"Logged in as {self._user.username}"
         )
 
         logout_button = ttk.Button(
-            master = self._frame,
-            text = "Logout",
-            command = self._logout_handler
+            master=self._frame,
+            text="Logout",
+            command=self._logout_handler
         )
 
         user_label.grid(row=0, column=0, padx=10, pady=10)
 
         logout_button.grid(
-            row = 0,
-            column= 1,
-            padx= 10,
-            pady= 10
+            row=0,
+            column=1,
+            padx=10,
+            pady=10
         )
 
     def _initialize(self):
@@ -111,11 +112,10 @@ class MovesView:
         self._initialize_moves_list()
 
         self._moves_list_frame.grid(
-            row= 1,
-            column= 0,
-            columnspan= 2,
+            row=1,
+            column=0,
+            columnspan=2,
         )
 
-        self._frame.grid_columnconfigure(0, weight=1, minsize= 400)
+        self._frame.grid_columnconfigure(0, weight=1, minsize=400)
         self._frame.grid_columnconfigure(1, weight=0)
-    

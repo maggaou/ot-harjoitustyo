@@ -3,12 +3,13 @@ from ui.login_view import LoginView
 from ui.moves_view import MovesView
 from ui.create_user_view import CreateUserView
 
+
 class UI:
     """Sovelluksen käyttöliittymä."""
 
     def __init__(self, root):
         """Luokan konstruktori.
-        
+
         Args:
             root: tkinter ikkuna.
         """
@@ -18,7 +19,6 @@ class UI:
     def start(self):
         """Käyttöliittymän käynnistys."""
         self._show_login_view()
-    
 
     def _hide_current_view(self):
         if self._current_view:
@@ -36,7 +36,7 @@ class UI:
         )
 
         self._current_view.pack()
-    
+
     def _show_moves_view(self):
         self._hide_current_view()
 

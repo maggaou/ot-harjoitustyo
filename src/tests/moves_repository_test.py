@@ -6,6 +6,7 @@ from entities.move import Move
 from entities.style import Style
 from repositories.moves_repository import MOVES_REPOSITORY
 
+
 class TestMovesRepository(unittest.TestCase):
     def setUp(self):
         self.moves_repository = MOVES_REPOSITORY
@@ -19,7 +20,7 @@ class TestMovesRepository(unittest.TestCase):
 
     def test_age_group_as_string(self):
         self.assertEqual(AgeGroup.SIX, "6 years old and above")
-    
+
     def test_difficulty_as_string(self):
         self.assertEqual(Difficulty.BASIC, "basic")
 
@@ -29,14 +30,14 @@ class TestMovesRepository(unittest.TestCase):
         hi = moves.pop()
 
         self.assertEqual(hi.content, self.m1.content)
-    
+
     def test_creating_and_storing_multiple_moves1(self):
         self.moves_repository.create(self.m1)
         self.moves_repository.create(self.m2)
-        
+
         path = Path(self.moves_repository.directory)
         files = list(path.glob("*.md"))
-        self.assertEqual(len(files),2)
+        self.assertEqual(len(files), 2)
 
         moves = self.moves_repository.find_all()
         self.assertEqual(len(moves), 2)
@@ -54,4 +55,3 @@ class TestMovesRepository(unittest.TestCase):
 
         self.assertTrue(self.m1 in moves)
         self.assertTrue(self.m2 in moves)
-

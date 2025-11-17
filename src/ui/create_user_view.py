@@ -7,7 +7,7 @@ class CreateUserView:
 
     def __init__(self, root, handle_create_user, handle_show_login_view):
         """Luokan konstruktori.
-        
+
         Args:
             root: tkinter ikkuna yms.
             handle_create_user: uuden käyttäjän luomisen toiminto.
@@ -22,7 +22,7 @@ class CreateUserView:
         self._password_entry = None
         self._error_variable = None
         self._error_label = None
-        
+
         self._initialize()
 
     def _initialize(self):
@@ -31,26 +31,26 @@ class CreateUserView:
         self._error_variable = StringVar(self._frame)
 
         self._error_label = ttk.Label(
-            master = self._frame,
-            textvariable = self._error_variable,
-            foreground = "red"
+            master=self._frame,
+            textvariable=self._error_variable,
+            foreground="red"
         )
 
-        self._error_label.grid(padx = 10, pady = 10)
+        self._error_label.grid(padx=10, pady=10)
 
         self._initialize_username_field()
         self._initialize_password_field()
 
         create_user_button = ttk.Button(
-            master = self._frame,
-            text = "Create",
-            command = self._create_user_handler
+            master=self._frame,
+            text="Create",
+            command=self._create_user_handler
         )
 
         login_button = ttk.Button(
-            master = self._frame,
-            text = "Login",
-            command = self._handle_show_login_view
+            master=self._frame,
+            text="Login",
+            command=self._handle_show_login_view
         )
 
         self._frame.grid_columnconfigure(0, weight=1, minsize=500)
@@ -96,7 +96,7 @@ class CreateUserView:
         if len(username) <= 3 or len(password) <= 3:
             self._show_error("Username or password is too short")
             return
-        
+
         try:
             moves_service.create_new_user(username, password)
             self._handle_create_user()

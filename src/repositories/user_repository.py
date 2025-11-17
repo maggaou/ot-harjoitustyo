@@ -25,7 +25,7 @@ class UserRepository():
 
     def create(self, user):
         """Käyttäjän tallennus (Users-taulun schema)
-        
+
         Args:
             user: tallennettava käyttäjä (User olio)
 
@@ -46,7 +46,7 @@ class UserRepository():
 
     def find_all(self):
         """Palauttaa kaikki valmentajat
-        
+
         Returns:
             Lista (User-oliot)
         """
@@ -65,7 +65,7 @@ class UserRepository():
 
     def find_by_username(self, username):
         """Hae valmentaja käyttäjänimellä
-        
+
         Returns:
             User-olio jos kyseinen valmentaja löytyy, muuten None
         """
@@ -73,12 +73,13 @@ class UserRepository():
         cursor = self._connection.cursor()
 
         cursor.execute(
-            "SELECT * FROM Users WHERE username =?",(username,)
+            "SELECT * FROM Users WHERE username =?", (username,)
         )
 
         row = cursor.fetchone()
 
         return create_user_by_row(row)
+
 
 def create_user_by_row(row):
     if row:
@@ -87,5 +88,6 @@ def create_user_by_row(row):
     else:
         u = None
     return u
+
 
 USER_REPOSITORY = UserRepository(get_database_connection())
