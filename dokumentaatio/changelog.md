@@ -45,8 +45,3 @@ id: 222
 ---
 jeihou
 ```
-## Viikko 4
-
-### Muutokset
-- korjattu pylintin ehdottamat virheet
-  - move.py: korjaamatta _too-many-instance-attributes_
