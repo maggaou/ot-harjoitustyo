@@ -57,7 +57,7 @@ class UserRepository():
 
         rows = cursor.fetchall()
 
-        users = list()
+        users = []
         for row in rows:
             u = create_user_by_row(row)
             users.append(u)
