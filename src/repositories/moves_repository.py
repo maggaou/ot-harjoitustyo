@@ -27,7 +27,7 @@ class MovesRepository:
         """
         self.make_sure_that_directory_exists()
 
-        file_path = Path(self.directory) / (move.id + ".md")
+        file_path = Path(self.directory) / (move.uid + ".md")
         metadata = dict(move.__dict__)
         content = metadata.pop("content")
 

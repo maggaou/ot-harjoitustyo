@@ -47,9 +47,9 @@ class Move():
         self.picture_link = picture_link
         self.reference = reference
 
-        self.id = uid or str(uuid.uuid4())
+        self.uid = uid or str(uuid.uuid4())
 
     def __eq__(self, other):
         if not isinstance(other, Move):
             return False
-        return other.id == self.id
+        return other.uid == self.uid
