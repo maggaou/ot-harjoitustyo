@@ -6,11 +6,11 @@ def main():
     window = Tk()
     window.title("Moves (OT-harkka)")
 
+    window.bind("<Map>", lambda event: window.focus_force())
     ui_view = UI(window)
     ui_view.start()
 
     window.mainloop()
-
 
 if __name__ == "__main__":
     main()
