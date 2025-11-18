@@ -20,3 +20,4 @@
 | 13.11. | 45         | Testattu linux toimivuus                                                                                                                                                    |
 | 17.11. | 115        | (2h) Tutustuminen pylinttiin ja tehty pylintin ehdottamia koodikorjauksia. Toistaiseksi Move-luokassa on liian paljon parametreja                                           |
 | 17.11. | 274        | (4.5h) Lisätty käyttöliittymään uusi näkymä liikkeiden luomiseen. Näkymä vaatii vielä pieniä muutoksia ennen kuin kirjaus changelogiin.                                     |
+| 18.11. | 300        | (5h) Tehty paljon erilaisia parannuksia käyttöliittymään, mm. kirjautumattoman käyttäjän näkymä. Lisäksi uutena ominaisuutena yksittäisen liikkeen tietojen tarkastelu. Tämä ShowMoveView on vielä hyvin karkea ja kaipaa parannuksia. Liikkeiden muokkaus ei ole vielä mahdollista. |
