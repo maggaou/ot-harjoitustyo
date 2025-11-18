@@ -18,3 +18,6 @@ class User:
         if not isinstance(other, User):
             return False
         return self.username == other.username
+
+    def __repr__(self):
+        return self.username

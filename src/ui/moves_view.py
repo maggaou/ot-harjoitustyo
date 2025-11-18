@@ -44,17 +44,19 @@ class MovesListView:
 class MovesView:
     """Liikkeiden listanäkymä ja muut toiminnot."""
 
-    def __init__(self, root, handle_logout, handle_create_move):
+    def __init__(self, root, handle_logout, handle_create_move, handle_show_login):
         """Luokan konstruktori.
 
         Args:
             root: tkinter ikkuna yms.
             handle_logout: näkymä uloskirjautumisen jälkeen.
             handle_create_move: näkymä kun käyttäjä painaa create move.
+            handle_show_login: palaaminen takaisin login-näkymään.
         """
         self._root = root
         self._handle_logout = handle_logout
         self._handle_create_move = handle_create_move
+        self._handle_show_login = handle_show_login
         self._user = moves_service.get_logged_in_user()
         self._frame = None
         self._moves_list_frame = None
@@ -88,7 +90,7 @@ class MovesView:
     def _initialize_header(self):
         user_label = ttk.Label(
             master=self._frame,
-            text=f"Logged in as {self._user.username}"
+            text=f"Logged in as {self._user}" if self._user else "Not logged in"
         )
 
         logout_button = ttk.Button(
@@ -103,21 +105,34 @@ class MovesView:
             command=self._handle_create_move
         )
 
+        login_button = ttk.Button(
+            master=self._frame,
+            text="Login/Create account",
+            command=self._handle_show_login
+        )
         user_label.grid(row=0, column=0, padx=10, pady=10)
 
-        logout_button.grid(
-            row=0,
-            column=1,
-            padx=10,
-            pady=10
-        )
+        if self._user:
+            logout_button.grid(
+                row=0,
+                column=1,
+                padx=10,
+                pady=10
+            )
 
-        create_move_button.grid(
-            row=0,
-            column=2,
-            padx=10,
-            pady=10
-        )
+            create_move_button.grid(
+                row=0,
+                column=2,
+                padx=10,
+                pady=10
+            )
+        else:
+            login_button.grid(
+                row=0,
+                column=1,
+                padx=10,
+                pady=10
+            )
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
