@@ -56,19 +56,21 @@ class CreateMoveView:
         fields = ["name", "content", "style", "age_group",
                   "difficulty", "picture_link", "reference"]
 
-        for f in fields:
+        for i, f in enumerate(fields):
             label_text = f.capitalize().replace('_', ' ')
             label = ttk.Label(master=self._frame, text=label_text)
 
             self._entries[f] = ttk.Entry(master=self._frame)
 
-            label.grid(padx=5, pady=5, column=0)
-            self._entries[f].grid(padx=5, pady=5, column=1)
+            label.grid(row=i, column=0, padx=5, pady=5)
+            self._entries[f].grid(row=i, column=1, padx=5, pady=5)
+
+        return len(fields)
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._frame)
 
-        self._initialize_fields()
+        r = self._initialize_fields()
 
         create_move_button = ttk.Button(
             master=self._frame,
@@ -84,5 +86,5 @@ class CreateMoveView:
 
         self._frame.grid_columnconfigure(0, weight=1, minsize=400)
 
-        create_move_button.grid(padx=5, pady=5)
-        go_to_moves_button.grid(padx=5, pady=5)
+        go_to_moves_button.grid(row=r, column=0, padx=5, pady=5)
+        create_move_button.grid(row=r, column=1, padx=5, pady=5)
