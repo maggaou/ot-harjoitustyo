@@ -5,18 +5,21 @@ from services.moves_service import MOVES_SERVICE as moves_service, UsernameExist
 class CreateUserView:
     """Rekisteröitymisen näkymä."""
 
-    def __init__(self, root, handle_create_user, handle_show_login_view):
+    def __init__(self, root, handle_create_user, handle_show_login_view,
+                 handle_show_moves_view):
         """Luokan konstruktori.
 
         Args:
             root: tkinter ikkuna yms.
             handle_create_user: uuden käyttäjän luomisen toiminto.
             handle_show_login_view: kirjautumisen toiminto.
+            handle_show_moves_view: näytä moves-näkymä.
         """
 
         self._root = root
         self._handle_create_user = handle_create_user
         self._handle_show_login_view = handle_show_login_view
+        self._handle_show_moves_view = handle_show_moves_view
         self._frame = None
         self._username_entry = None
         self._password_entry = None
@@ -43,20 +46,33 @@ class CreateUserView:
 
         create_user_button = ttk.Button(
             master=self._frame,
-            text="Create",
+            text="Create new user",
             command=self._create_user_handler
+        )
+
+        show_moves_button = ttk.Button(
+            master=self._frame,
+            text="Show moves",
+            command=self._handle_show_moves_view
+        )
+
+        or_label = ttk.Label(
+            master=self._frame,
+            text="OR",
         )
 
         login_button = ttk.Button(
             master=self._frame,
-            text="Login",
+            text="Go to login",
             command=self._handle_show_login_view
         )
 
         self._frame.grid_columnconfigure(0, weight=1, minsize=500)
 
-        create_user_button.grid(padx=10, pady=10)
-        login_button.grid(padx=10, pady=10)
+        create_user_button.grid(padx=10, pady=5)
+        or_label.grid(pady=5)
+        login_button.grid(padx=10, pady=5)
+        show_moves_button.grid(pady=5)
 
         self._hide_error()
 
