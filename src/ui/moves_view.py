@@ -1,20 +1,23 @@
 from tkinter import ttk, constants
+from tkinter import font
 from services.moves_service import MOVES_SERVICE as moves_service
 
 
 class MovesListView:
     """Liikkeiden lista-näkymä."""
 
-    def __init__(self, root, moves):
+    def __init__(self, root, moves, handle_show_move_view):
         """Luokan konstruktori.
 
         Args:
             root: tkinter ikkuna yms.
             moves: lista näkymän liikkeistä
+            handle_show_move_view: yksittäisen liikkeen näkymä.
         """
 
         self._root = root
         self._moves = moves
+        self._handle_show_move_view = handle_show_move_view
         self._frame = None
 
         self._initialize()
@@ -27,9 +30,17 @@ class MovesListView:
 
     def _initialize_move_item(self, move):
         item_frame = ttk.Frame(master=self._frame)
-        label = ttk.Label(master=item_frame, text=move.name)
+        underline_font = font.Font(family="Helvetica", size=13, underline=True)
+        label = ttk.Label(
+            master=item_frame,
+            text=move.name,
+            foreground="cyan",
+            cursor="cross",
+            font=underline_font
+        )
 
-        label.grid(row=0, column=0, padx=10, pady=10)
+        label.grid(row=0, column=0, pady=5)
+        label.bind("<Button-1>", lambda event: self._handle_show_move_view(move))
 
         item_frame.grid_columnconfigure(0, weight=1)
         item_frame.pack(fill=constants.X)
@@ -44,7 +55,8 @@ class MovesListView:
 class MovesView:
     """Liikkeiden listanäkymä ja muut toiminnot."""
 
-    def __init__(self, root, handle_logout, handle_create_move, handle_show_login):
+    def __init__(self, root, handle_logout, handle_create_move,
+                 handle_show_login, handle_show_move_view):
         """Luokan konstruktori.
 
         Args:
@@ -52,11 +64,13 @@ class MovesView:
             handle_logout: näkymä uloskirjautumisen jälkeen.
             handle_create_move: näkymä kun käyttäjä painaa create move.
             handle_show_login: palaaminen takaisin login-näkymään.
+            handle_show_move_view: yksittäisen liikkeen näkymä.
         """
         self._root = root
         self._handle_logout = handle_logout
         self._handle_create_move = handle_create_move
         self._handle_show_login = handle_show_login
+        self._handle_show_move_view = handle_show_move_view
         self._user = moves_service.get_logged_in_user()
         self._frame = None
         self._moves_list_frame = None
@@ -82,7 +96,8 @@ class MovesView:
 
         self._moves_list_view = MovesListView(
             self._moves_list_frame,
-            moves
+            moves,
+            self._handle_show_move_view,
         )
 
         self._moves_list_view.pack()
