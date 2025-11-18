@@ -19,7 +19,7 @@ class UI:
 
     def start(self):
         """Käyttöliittymän käynnistys."""
-        self._show_login_view()
+        self._show_moves_view()
 
     def _hide_current_view(self):
         if self._current_view:
@@ -33,7 +33,8 @@ class UI:
         self._current_view = LoginView(
             self._root,
             self._show_moves_view,
-            self._show_create_user_view
+            self._show_create_user_view,
+            self._show_moves_view
         )
 
         self._current_view.pack()
@@ -43,8 +44,9 @@ class UI:
 
         self._current_view = MovesView(
             self._root,
-            self._show_login_view,
-            self._show_create_move_view
+            self._show_moves_view,
+            self._show_create_move_view,
+            self._show_login_view
         )
 
         self._current_view.pack()
@@ -55,7 +57,8 @@ class UI:
         self._current_view = CreateUserView(
             self._root,
             self._show_moves_view,
-            self._show_login_view
+            self._show_login_view,
+            self._show_moves_view
         )
 
         self._current_view.pack()
