@@ -33,7 +33,7 @@ class CreateMoveView:
 
     def _create_move_handler(self):
         current_date = datetime.now()
-        formatted_date = current_date.strftime("%d.%m.%y")
+        formatted_date = current_date.strftime("%d.%m.%Y")
         original_creator = moves_service.get_logged_in_user().username
         args = {"original_creator": original_creator,
                 "date_submitted": formatted_date}
