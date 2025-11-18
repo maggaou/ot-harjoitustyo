@@ -1,4 +1,4 @@
-from tkinter import ttk, constants
+from tkinter import font, ttk, constants
 
 
 class ShowMoveView:
@@ -29,11 +29,23 @@ class ShowMoveView:
         self._frame.destroy()
 
     def _initialize_rows(self):
+        bold_font = font.Font(family="Helvetica", size=13, weight="bold")
+        normal_font = font.Font(family="Helvetica", size=13, weight="normal")
+
         move_dict = vars(self._move)
-        for i, L in enumerate(move_dict):
-            text = L.capitalize().replace('_', ' ') + ": " + move_dict[L]
-            label = ttk.Label(self._frame, text=text)
-            label.grid(row=i, pady=5)
+
+        for i, field in enumerate(move_dict):
+            text_field_name = field.capitalize().replace('_', ' ') + ":"
+            text_field_value = move_dict[field]
+
+            field_name_label = ttk.Label(
+                self._frame, text=text_field_name, font=bold_font, foreground="cyan")
+            field_value_label = ttk.Label(
+                self._frame, text=text_field_value, font=normal_font)
+
+            field_name_label.grid(row=i, column=0, pady=5, sticky=constants.E)
+            field_value_label.grid(row=i, column=1, pady=5, sticky=constants.W)
+
         return len(move_dict)
 
     def _initialize(self):
