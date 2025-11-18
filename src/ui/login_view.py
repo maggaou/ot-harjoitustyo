@@ -5,18 +5,21 @@ from services.moves_service import MOVES_SERVICE as moves_service, InvalidCreden
 class LoginView:
     """Kirjautumisen näkymä."""
 
-    def __init__(self, root, handle_login, handle_show_create_user_view):
+    def __init__(self, root, handle_login, handle_show_create_user_view,
+                 handle_show_moves_view):
         """Luokan konstruktori.
 
         Args:
             root: tkinter ikkuna.
             handle_login: sisäänkirjautumisen toiminto.
             handle_show_create_user_view: uuden käyttäjän luomisen toiminto.
+            handle_show_moves_view: näytä päänäkymä.
         """
 
         self._root = root
         self._handle_login = handle_login
         self._handle_show_create_user_view = handle_show_create_user_view
+        self._handle_show_moves_view = handle_show_moves_view
         self._frame = None
         self._username_entry = None
         self._password_entry = None
@@ -53,10 +56,23 @@ class LoginView:
             command=self._handle_show_create_user_view
         )
 
+        or_label = ttk.Label(
+            master=self._frame,
+            text="OR",
+        )
+
+        show_moves_button = ttk.Button(
+            master=self._frame,
+            text="Show moves",
+            command=self._handle_show_moves_view
+        )
+
         self._frame.grid_columnconfigure(0, weight=1, minsize=500)
 
-        login_button.grid(padx=10, pady=10)
-        create_user_button.grid(padx=10, pady=10)
+        login_button.grid(padx=10, pady=5)
+        or_label.grid(pady=5)
+        create_user_button.grid(padx=10, pady=5)
+        show_moves_button.grid(pady=5)
 
         self._hide_error()
 
