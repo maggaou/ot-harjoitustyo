@@ -49,3 +49,7 @@ def format_with_autopep8(ctx):
 @task
 def clear_moves(ctx):
     ctx.run("rm -f data/my-moves/*", pty=True)
+
+@task
+def lint(ctx):
+    ctx.run("pylint src", pty=True)
