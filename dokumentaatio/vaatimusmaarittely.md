@@ -43,6 +43,7 @@ Käyttöliittymässä pystyy asettamaan seuraavat metatiedot ✅
 ### Laajennetut ominaisuudet
 - painiliikkeiden editointi tai poisto
 - monivalinta elementit liikkeen tallennuksessa/muokkaamisessa
+- liikkeen muokkaushistorian tarkastelu (kuka on muokannut ja milloin)
 - kuvien näyttäminen ShowMoveView-näkymässä
 - kuvien näyttäminen listauksessa
 - paikallisten kuvien käyttö
