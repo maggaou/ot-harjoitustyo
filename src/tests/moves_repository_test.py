@@ -43,8 +43,8 @@ class TestMovesRepository(unittest.TestCase):
         self.assertEqual(len(moves), 2)
 
     def test_move_ids_are_unique(self):
-        id1 = self.m1.id
-        id2 = self.m2.id
+        id1 = self.m1.uid
+        id2 = self.m2.uid
         self.assertFalse(id1 == id2)
 
     def test_creating_and_storing_multiple_moves2(self):
