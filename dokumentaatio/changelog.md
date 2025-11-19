@@ -45,3 +45,19 @@ id: 222
 ---
 jeihou
 ```
+## Viikko 4
+
+### Muutokset:
+- ohjelman käynnistys moves-näkymään
+- muista näkymistä pääsee takaisin moves-näkymään
+- uusi näkymä: liikkeiden luonti
+- moves-näkymä/jos käyttäjä ei ole kirjautunut sisään
+    - näytä "not logged in"
+    - näytä "Login/Create account" painike
+- logout/uloskirjautuminen moves-näkymässä näyttää uudestaan moves-näkymän
+- moves-näkymästä voi käynnistää yksittäisen liikkeen näkymän
+
+### Muuta
+- liikkeiden luonnissa ei ole vielä virheentarkistusta
+- liikkeen näkymästä palaaminen moves-näkymään saattaa aiheuttaa tkinter-ongelman että ikkunan sisältö ei päivity ennen kuin käyttäjä vie hiiren ikkunan sisälle
+- liikkeen luomisen lomakkeessa ei ole monivalintaelementtejä
