@@ -63,3 +63,7 @@ Huom. suorita `git checkout 4f2b2f98c64c93ba69896d216a0818d46b9c1c50` ennen ohje
 - liikkeiden luonnissa ei ole vielä virheentarkistusta
 - liikkeen näkymästä palaaminen moves-näkymään saattaa aiheuttaa tkinter-ongelman että ikkunan sisältö ei päivity ennen kuin käyttäjä vie hiiren ikkunan sisälle
 - liikkeen luomisen lomakkeessa ei ole monivalintaelementtejä
+
+&nbsp;
+
+Huom. suorita tarvittaessa liikkeiden poisto `invoke clear-moves` ennen ohjelman käynnistystä.
