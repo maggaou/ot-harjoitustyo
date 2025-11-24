@@ -124,5 +124,13 @@ class MovesService:
 
         return self._user_repository.create(user)
 
+    def delete_move(self, move):
+        """Poistaa annetun liikkeen.
+
+        Args:
+            move: poistettava move-olio.
+        """
+        self._moves_repository.delete(move)
+
 
 moves_service = MovesService()

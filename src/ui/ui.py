@@ -83,6 +83,7 @@ class UI:
             self._root,
             move,
             self._show_moves_view,
+            self._show_moves_view,
         )
 
         self._current_view.pack()

@@ -1,21 +1,24 @@
 from tkinter import font, ttk, constants
 from services.moves_service import moves_service
 
+
 class ShowMoveView:
     """Yksittäisen liikkeen näkymä."""
 
-    def __init__(self, root, move, handle_show_moves):
+    def __init__(self, root, move, handle_show_moves, handle_delete_move):
         """Luokan konstruktori.
 
         Args:
             root: tkinter ikkuna yms.
             move: näytettävä liike.
             handle_show_moves: paluu takaisin päänäkymään.
+            handle_delete_move: paluu takaisin päänäkymään.
         """
 
         self._root = root
         self._move = move
         self._handle_show_moves = handle_show_moves
+        self._handle_delete_move = handle_delete_move
         self._frame = None
 
         self._initialize()
@@ -48,6 +51,10 @@ class ShowMoveView:
 
         return len(move_dict)
 
+    def _delete_move(self):
+        moves_service.delete_move(self._move)
+        self._handle_delete_move()
+
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
 
@@ -59,6 +66,14 @@ class ShowMoveView:
             command=self._handle_show_moves
         )
 
+        delete_move_button = ttk.Button(
+            master=self._frame,
+            text="Delete",
+            command=self._delete_move,
+        )
+
         self._frame.grid_columnconfigure(0, weight=1, minsize=400)
 
-        show_moves_button.grid(row=final_row, pady=10)
+        show_moves_button.grid(row=final_row, column=0, pady=10)
+        delete_move_button.grid(row=final_row, column=1,
+                                pady=10, padx=30, sticky=constants.E)
