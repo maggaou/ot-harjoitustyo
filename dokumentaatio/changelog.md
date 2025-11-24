@@ -45,6 +45,8 @@ id: 222
 ---
 jeihou
 ```
+Huom. suorita `git checkout 4f2b2f98c64c93ba69896d216a0818d46b9c1c50` ennen ohjelman kokeilua.
+
 ## Viikko 4
 
 ### Muutokset:
