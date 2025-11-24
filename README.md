@@ -3,7 +3,7 @@ Ohjelman tarkoitus on tallentaa painiliikkeitä joita valmentajat voivat jakaa k
 
 ## Dokumentaatio
 - [Vaatimusmäärittely](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
-- [Arkkitehtuurikuvaus]()
+- [Arkkitehtuurikuvaus](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
 - [Työaikakirjanpito](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/tyoaikakirjanpito.md)
 - [Changelog](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/changelog.md)
 
