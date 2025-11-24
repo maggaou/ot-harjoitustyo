@@ -14,19 +14,27 @@ class MovesRepository:
         Args:
             directory: kansio johon tekstitiedostot tallennetaan
         """
-
         self.directory = directory
+        self.make_sure_that_directory_exists()
 
     def delete_all(self):
-        self.make_sure_that_directory_exists()
+        """ Poista kaikki paikallisesti tallennetut liikkeet.
+        """
         for file in Path(self.directory).glob("*.md"):
             file.unlink()
+
+    def delete(self, move):
+        """ Poista yksittäinen liike.
+
+        Args:
+            move: move-objekti.
+        """
+        file_path = Path(self.directory) / (move.uid + ".md")
+        file_path.unlink()
 
     def create(self, move):
         """Tallenna liike tiedostoihin.
         """
-        self.make_sure_that_directory_exists()
-
         file_path = Path(self.directory) / (move.uid + ".md")
         metadata = dict(move.__dict__)
         content = metadata.pop("content")
@@ -41,7 +49,6 @@ class MovesRepository:
         Returns:
             Lista (Move)
         """
-        self.make_sure_that_directory_exists()
         moves = []
 
         for file in Path(self.directory).glob("*.md"):
@@ -59,4 +66,4 @@ class MovesRepository:
             path.mkdir()
 
 
-MOVES_REPOSITORY = MovesRepository(MOVES_PATH)
+moves_repository = MovesRepository(MOVES_PATH)

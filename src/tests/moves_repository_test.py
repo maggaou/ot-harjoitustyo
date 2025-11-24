@@ -4,12 +4,12 @@ from entities.age_group import AgeGroup
 from entities.difficulty import Difficulty
 from entities.move import Move
 from entities.style import Style
-from repositories.moves_repository import MOVES_REPOSITORY
+from repositories.moves_repository import moves_repository
 
 
 class TestMovesRepository(unittest.TestCase):
     def setUp(self):
-        self.moves_repository = MOVES_REPOSITORY
+        self.moves_repository = moves_repository
         self.moves_repository.delete_all()
 
         self.m1 = Move(content="jeihou")
@@ -55,3 +55,21 @@ class TestMovesRepository(unittest.TestCase):
 
         self.assertTrue(self.m1 in moves)
         self.assertTrue(self.m2 in moves)
+
+    def test_delete_all(self):
+        self.moves_repository.create(self.m1)
+        self.moves_repository.create(self.m2)
+
+        self.moves_repository.delete_all()
+        hi = self.moves_repository.find_all()
+
+        self.assertFalse(hi)
+
+    def test_deleting_one_move(self):
+        self.moves_repository.create(self.m1)
+        self.moves_repository.create(self.m2)
+
+        self.moves_repository.delete(self.m2)
+
+        moves = self.moves_repository.find_all()
+        self.assertFalse(self.m2 in moves)

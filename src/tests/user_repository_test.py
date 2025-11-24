@@ -1,12 +1,12 @@
 import unittest
-from repositories.user_repository import USER_REPOSITORY
+from repositories.user_repository import user_repository
 from entities.user import User
 from initialize_database import initialize_database
 
 
 class TestUserRepository(unittest.TestCase):
     def setUp(self):
-        self.user_repository = USER_REPOSITORY
+        self.user_repository = user_repository
         self.user_repository.delete_all()
         self.u1 = User(name="Roope Koivisto", team="Nurmon Voima",
                        username="roopeKoi", password="password1@")

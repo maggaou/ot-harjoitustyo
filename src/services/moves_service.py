@@ -1,8 +1,8 @@
 from entities.user import User
 from entities.move import Move
 
-from repositories.moves_repository import MOVES_REPOSITORY as default_moves_repository
-from repositories.user_repository import USER_REPOSITORY as default_user_repository
+from repositories.moves_repository import moves_repository as default_moves_repository
+from repositories.user_repository import user_repository as default_user_repository
 
 
 class InvalidCredentialsError(Exception):

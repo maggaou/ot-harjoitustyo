@@ -90,4 +90,4 @@ def create_user_by_row(row):
     return u
 
 
-USER_REPOSITORY = UserRepository(get_database_connection())
+user_repository = UserRepository(get_database_connection())
