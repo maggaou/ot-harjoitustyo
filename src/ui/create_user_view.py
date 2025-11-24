@@ -1,5 +1,5 @@
 from tkinter import ttk, StringVar, constants
-from services.moves_service import MOVES_SERVICE as moves_service, UsernameExistsError
+from services.moves_service import moves_service, UsernameExistsError
 
 
 class CreateUserView:

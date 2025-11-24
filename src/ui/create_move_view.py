@@ -1,6 +1,6 @@
 from datetime import datetime
 from tkinter import ttk, constants
-from services.moves_service import MOVES_SERVICE as moves_service
+from services.moves_service import moves_service
 
 
 class CreateMoveView:

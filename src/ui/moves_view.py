@@ -1,6 +1,6 @@
 from tkinter import ttk, constants
 from tkinter import font
-from services.moves_service import MOVES_SERVICE as moves_service
+from services.moves_service import moves_service
 
 
 class MovesListView:
@@ -13,6 +13,7 @@ class MovesListView:
             root: tkinter ikkuna yms.
             moves: lista näkymän liikkeistä
             handle_show_move_view: yksittäisen liikkeen näkymä.
+
         """
 
         self._root = root

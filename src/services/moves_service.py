@@ -125,4 +125,4 @@ class MovesService:
         return self._user_repository.create(user)
 
 
-MOVES_SERVICE = MovesService()
+moves_service = MovesService()

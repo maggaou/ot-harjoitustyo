@@ -1,5 +1,5 @@
 from tkinter import font, ttk, constants
-
+from services.moves_service import moves_service
 
 class ShowMoveView:
     """Yksittäisen liikkeen näkymä."""
