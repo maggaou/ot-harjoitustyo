@@ -75,5 +75,7 @@ class ShowMoveView:
         self._frame.grid_columnconfigure(0, weight=1, minsize=400)
 
         show_moves_button.grid(row=final_row, column=0, pady=10)
-        delete_move_button.grid(row=final_row, column=1,
+
+        if moves_service.get_logged_in_user():
+            delete_move_button.grid(row=final_row, column=1,
                                 pady=10, padx=30, sticky=constants.E)
