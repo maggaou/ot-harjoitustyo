@@ -43,6 +43,17 @@ class MovesRepository:
 
         return move
 
+    def modify(self, move):
+        """Tallenna muokattu versio annetusta Move-objektista.
+        
+        Args:
+            move: Move-objekti joka sisältää muokkaukset.
+        """
+        file_path = Path(self.directory) / (move.uid + ".md")
+        metadata = dict(move.__dict__)
+        content = metadata.pop("content")
+
+        caput.write_contents(file_path, content, metadata)
     def find_all(self):
         """Palauttaa kaikki liikkeet.
 
