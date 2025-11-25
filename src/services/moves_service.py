@@ -1,3 +1,4 @@
+from datetime import datetime
 from entities.user import User
 from entities.move import Move
 
@@ -141,6 +142,19 @@ class MovesService:
             move-objekti.
         """
         return self._moves_repository.find_by_uid(uid)
+
+    def edit_move(self, **args):
+        """Tallentaa muokatun version annetusta liikkeestä.
+
+        Args:
+            **args: liikkeen sisältö (content) ja mahdollinen metadata.
+        """
+        current_date_str = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
+        args["modifications"].append(
+            (current_date_str, moves_service.get_logged_in_user().username))
+
+        move = Move(**args)
+        self._moves_repository.modify(move)
 
 
 moves_service = MovesService()

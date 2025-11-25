@@ -26,7 +26,7 @@ class EditMoveView(AbstractCreateMoveView):
         args["picture_link"] = self._entries["picture_link"].get()
         args["reference"] = self._entries["reference"].get()
 
-        moves_service.create_move(**args)
+        moves_service.edit_move(**args)
         self._handle_action()
 
     def _prefill_entries(self):

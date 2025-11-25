@@ -104,3 +104,16 @@ class TestMovesRepository(unittest.TestCase):
         self.assertEqual(hi.uid, self.m1.uid)
         self.assertEqual(hi.name, "my nice move")
         self.assertEqual(hi.content, "jeihou")
+
+    def test_move_modifications_are_lists(self):
+        self.assertTrue(isinstance(self.m1.modifications, list))
+        self.m1.modifications.append(('a', 'b'))
+        self.m1.modifications.append(('b', 'c'))
+
+        self.moves_repository.create(self.m1)
+        hi = self.moves_repository.find_all().pop()
+
+        self.assertTrue(isinstance(hi.modifications, list))
+
+        hi = self.moves_repository.find_by_uid(self.m1.uid)
+        self.assertTrue(isinstance(hi.modifications, list))

@@ -18,7 +18,7 @@ class Move():
 
     def __init__(self, content, name=None, style=None, age_group=None,
                  difficulty=None, original_creator=None, date_submitted=None,
-                 picture_link=None, reference=None, uid=None):
+                 modifications=[], picture_link=None, reference=None, uid=None):
         """Luokan konstruktori.
 
         Args:
@@ -28,6 +28,7 @@ class Move():
             difficulty: vaikeusaste (Difficulty.BASIC jne)
             orginal_creator: liikkeen alkuperäinen lisääjä
             date_submitted: milloin liike on lisätty
+            modifications: lista (milloin,kuka) muokkauksista
             content: sisältö (markdown muotoilu)
             picture_link:
                 Valinnainen, oletusarvo None
@@ -43,6 +44,7 @@ class Move():
         self.difficulty = difficulty
         self.original_creator = original_creator
         self.date_submitted = date_submitted
+        self.modifications = modifications
         self.content = content
         self.picture_link = picture_link
         self.reference = reference
@@ -53,3 +55,20 @@ class Move():
         if not isinstance(other, Move):
             return False
         return other.uid == self.uid
+
+    @staticmethod
+    def order(attr):
+        order = [
+            "name",
+            "style",
+            "age_group",
+            "difficulty",
+            "content",
+            "picture_link",
+            "reference",
+            "original_creator",
+            "date_submitted",
+            "modifications",
+            "uid",
+        ]
+        return order.index(attr)

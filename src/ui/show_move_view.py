@@ -1,5 +1,6 @@
 from tkinter import font, ttk, constants
 from services.moves_service import moves_service
+from entities.move import Move
 
 
 class ShowMoveView:
@@ -35,21 +36,42 @@ class ShowMoveView:
 
     def _initialize_rows(self):
         bold_font = font.Font(family="Helvetica", size=13, weight="bold")
-        normal_font = font.Font(family="Helvetica", size=13, weight="normal")
+        normal_font = font.Font(family="Helvetica", size=13)
+        underline_font = font.Font(family="Helvetica", size=13, underline=True)
 
         move_dict = vars(self._move)
-
-        for i, field in enumerate(move_dict):
+        move_dict_sorted = {key: move_dict[key]
+                            for key in sorted(move_dict, key=Move.order)}
+        for i, field in enumerate(move_dict_sorted):
             text_field_name = field.capitalize().replace('_', ' ') + ":"
             text_field_value = move_dict[field]
 
             field_name_label = ttk.Label(
                 self._frame, text=text_field_name, font=bold_font, foreground="cyan")
-            field_value_label = ttk.Label(
-                self._frame, text=text_field_value, font=normal_font)
 
-            field_name_label.grid(row=i, column=0, pady=5, sticky=constants.E)
-            field_value_label.grid(row=i, column=1, pady=5, sticky=constants.W)
+            field_value_frame = ttk.Frame(self._frame)
+
+            if isinstance(text_field_value, str):
+                field_value_label = ttk.Label(
+                    field_value_frame,
+                    text=text_field_value,
+                    font=normal_font,
+                )
+                field_value_label.grid()
+            if isinstance(text_field_value, list):
+                for k, item in enumerate(text_field_value):
+                    current_username = ""
+                    if moves_service.get_logged_in_user():
+                        current_username = moves_service.get_logged_in_user().username
+                    field_value_label = ttk.Label(
+                        field_value_frame,
+                        font=normal_font if item[1] != current_username else underline_font,
+                        text=" ".join(item),
+                    )
+                    field_value_label.grid(row=k, sticky=constants.W)
+
+            field_name_label.grid(row=i, column=0, pady=5, sticky=constants.NE)
+            field_value_frame.grid(row=i, column=1, pady=5, sticky=constants.W)
 
         return len(move_dict)
 
