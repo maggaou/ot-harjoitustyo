@@ -77,7 +77,7 @@ class TestMovesRepository(unittest.TestCase):
     def test_modify_move_content(self):
         self.moves_repository.create(self.m1)
         old_content = self.m1.content
-        
+
         self.m1.content = "my new content"
         self.moves_repository.modify(self.m1)
 
@@ -91,7 +91,7 @@ class TestMovesRepository(unittest.TestCase):
 
         self.m1.name = "nice move"
         self.moves_repository.modify(self.m1)
-        
+
         hi = self.moves_repository.find_all().pop()
         self.assertNotEqual(hi.name, old_name)
         self.assertEqual(hi.name, "nice move")

@@ -45,7 +45,7 @@ class MovesRepository:
 
     def modify(self, move):
         """Tallenna muokattu versio annetusta Move-objektista.
-        
+
         Args:
             move: Move-objekti joka sisältää muokkaukset.
         """
@@ -54,10 +54,10 @@ class MovesRepository:
         content = metadata.pop("content")
 
         caput.write_contents(file_path, content, metadata)
-    
+
     def find_by_uid(self, uid):
         """Hae move-objekti uid:n perusteella.
-        
+
         Args:
             uid: haettavan move-objektin tunniste.
         Returns:

@@ -132,5 +132,15 @@ class MovesService:
         """
         self._moves_repository.delete(move)
 
+    def find_by_uid(self, uid):
+        """Etsi liike tunnisteen perusteella.
+
+        Args:
+            uid: liikkeen tunniste.
+        Returns:
+            move-objekti.
+        """
+        return self._moves_repository.find_by_uid(uid)
+
 
 moves_service = MovesService()

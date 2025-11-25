@@ -5,7 +5,7 @@ from services.moves_service import moves_service
 class ShowMoveView:
     """Yksittäisen liikkeen näkymä."""
 
-    def __init__(self, root, move, handle_show_moves, handle_delete_move):
+    def __init__(self, root, move, handle_show_moves, handle_delete_move, handle_edit_move):
         """Luokan konstruktori.
 
         Args:
@@ -13,12 +13,14 @@ class ShowMoveView:
             move: näytettävä liike.
             handle_show_moves: paluu takaisin päänäkymään.
             handle_delete_move: paluu takaisin päänäkymään.
+            handle_edit_move: avaa liikkeen muokkaaminen.
         """
 
         self._root = root
         self._move = move
         self._handle_show_moves = handle_show_moves
         self._handle_delete_move = handle_delete_move
+        self._handle_edit_move = lambda: handle_edit_move(move)
         self._frame = None
 
         self._initialize()
@@ -72,10 +74,18 @@ class ShowMoveView:
             command=self._delete_move,
         )
 
+        modify_move_button = ttk.Button(
+            master=self._frame,
+            text="Edit",
+            command=self._handle_edit_move,
+        )
+
         self._frame.grid_columnconfigure(0, weight=1, minsize=400)
 
         show_moves_button.grid(row=final_row, column=0, pady=10)
 
         if moves_service.get_logged_in_user():
             delete_move_button.grid(row=final_row, column=1,
-                                pady=10, padx=30, sticky=constants.E)
+                                    pady=5, padx=30, sticky=constants.E)
+            modify_move_button.grid(row=final_row+1, column=1,
+                                    pady=5, padx=30, sticky=constants.E)

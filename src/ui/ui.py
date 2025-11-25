@@ -1,9 +1,11 @@
 
 from ui.create_move_view import CreateMoveView
+from ui.edit_move_view import EditMoveView
 from ui.login_view import LoginView
 from ui.moves_view import MovesView
 from ui.create_user_view import CreateUserView
 from ui.show_move_view import ShowMoveView
+from services.moves_service import moves_service
 
 
 class UI:
@@ -76,13 +78,27 @@ class UI:
 
         self._current_view.pack()
 
-    def _show_move_view(self, move):
+    def _show_move_view(self, move_uid):
+        move = moves_service.find_by_uid(move_uid)
         self._hide_current_view()
 
         self._current_view = ShowMoveView(
             self._root,
             move,
             self._show_moves_view,
+            self._show_moves_view,
+            self._show_edit_view,
+        )
+
+        self._current_view.pack()
+
+    def _show_edit_view(self, move):
+        self._hide_current_view()
+
+        self._current_view = EditMoveView(
+            self._root,
+            move,
+            self._show_move_view,
             self._show_moves_view,
         )
 

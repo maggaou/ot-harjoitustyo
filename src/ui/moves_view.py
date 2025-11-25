@@ -41,7 +41,8 @@ class MovesListView:
         )
 
         label.grid(row=0, column=0, pady=5)
-        label.bind("<Button-1>", lambda event: self._handle_show_move_view(move))
+        label.bind(
+            "<Button-1>", lambda event: self._handle_show_move_view(move.uid))
 
         item_frame.grid_columnconfigure(0, weight=1)
         item_frame.pack(fill=constants.X)
