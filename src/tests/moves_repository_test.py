@@ -74,7 +74,7 @@ class TestMovesRepository(unittest.TestCase):
         moves = self.moves_repository.find_all()
         self.assertFalse(self.m2 in moves)
 
-    def modify_move_content(self):
+    def test_modify_move_content(self):
         self.moves_repository.create(self.m1)
         old_content = self.m1.content
         
@@ -85,7 +85,7 @@ class TestMovesRepository(unittest.TestCase):
         self.assertNotEqual(hi.content, old_content)
         self.assertEqual(hi.content, "my new content")
 
-    def modify_move_name(self):
+    def test_modify_move_name(self):
         self.moves_repository.create(self.m1)
         old_name = self.m1.name
 
@@ -95,3 +95,12 @@ class TestMovesRepository(unittest.TestCase):
         hi = self.moves_repository.find_all().pop()
         self.assertNotEqual(hi.name, old_name)
         self.assertEqual(hi.name, "nice move")
+
+    def test_find_by_uid(self):
+        self.m1.name = "my nice move"
+        self.moves_repository.create(self.m1)
+        hi = self.moves_repository.find_by_uid(self.m1.uid)
+
+        self.assertEqual(hi.uid, self.m1.uid)
+        self.assertEqual(hi.name, "my nice move")
+        self.assertEqual(hi.content, "jeihou")

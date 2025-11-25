@@ -54,6 +54,23 @@ class MovesRepository:
         content = metadata.pop("content")
 
         caput.write_contents(file_path, content, metadata)
+    
+    def find_by_uid(self, uid):
+        """Hae move-objekti uid:n perusteella.
+        
+        Args:
+            uid: haettavan move-objektin tunniste.
+        Returns:
+            haettu move-objekti.
+        """
+        file_path = Path(self.directory) / (uid + ".md")
+        content = caput.read_contents(file_path)
+        metadata = caput.read_config(file_path)
+        args = dict(metadata)
+        args["content"] = content
+
+        return Move(**args)
+
     def find_all(self):
         """Palauttaa kaikki liikkeet.
 
