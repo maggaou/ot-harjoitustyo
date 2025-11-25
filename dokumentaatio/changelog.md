@@ -63,3 +63,35 @@ Huom. suorita `git checkout 4f2b2f98c64c93ba69896d216a0818d46b9c1c50` ennen ohje
 - liikkeiden luonnissa ei ole vielä virheentarkistusta
 - liikkeen näkymästä palaaminen moves-näkymään saattaa aiheuttaa tkinter-ongelman että ikkunan sisältö ei päivity ennen kuin käyttäjä vie hiiren ikkunan sisälle
 - liikkeen luomisen lomakkeessa ei ole monivalintaelementtejä
+
+## Viikko 5
+
+### Muutokset:
+- renderöi liikkeen kentät aina samassa järjestyksessä
+- liikkeen poistaminen 
+    - näytä poista-nappi liikkeen näkymässä
+    - palaa moves-näkymään poistamisen jälkeen
+    - näytä poista nappi ainoastaan silloin jos käyttäjä on kirjautunut sisään
+- liikkeen muokkaaminen
+    - näytä muokkaus-nappi liikkeen näkymässä
+    - esitäytä kentät liikkeen muokkauksessa
+    - palaa liikkeen näkymään muokkauksen jälkeen
+    - näytä liikkeen näkymässä aina uusimmat liikkeen tiedot
+- muokkaushistoria
+    - näytä muokkaushistoria samassa näkymässä liikkeen muiden tietojen kanssa
+    - näytä muokkaushistoriassa
+        - muokkauksen päivämäärä ja aika nordic-muodossa
+        - kuka muokkauksen teki (käyttäjänimi)
+        - alleviivaa muokkaus jos kyseessä on kirjautuneen käyttäjän oma muokkaus
+        - älä alleviivaa muokkauksia muissa tapauksissa (esim. jos ei kirjautunut)
+    - näytä muokkaushistoria siten että jokainen muokkaus on eri rivillä
+    - muokkaushistoria säilyy aina aikajärjestyksessä (listojen tallennus/caput-paketti)
+
+### Muuta
+- liikkeiden luonnissa ei ole vielä virheentarkistusta
+- liikeiden muokkauksessa ei ole vielä virheentarkistusta
+- tyhjä/olematon muokkaus aiheuttaa merkinnän muokkaushistoriaan
+- liikkeen näkymästä palaaminen moves-näkymään saattaa aiheuttaa tkinter-ongelman että ikkunan sisältö ei päivity ennen kuin käyttäjä vie hiiren ikkunan sisälle
+- sama ongelma on myös liikkeen muokkauksessa
+- liikkeen luomisen lomakkeessa ei ole monivalintaelementtejä
+- moves-näkymä ei käytä liikkeiden listauksessa mitään ennaltamääriteltyä järjestystä
