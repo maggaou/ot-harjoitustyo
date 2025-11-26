@@ -22,5 +22,7 @@
 | 17.11. | 274        | (4.5h) Lisätty käyttöliittymään uusi näkymä liikkeiden luomiseen. Näkymä vaatii vielä pieniä muutoksia ennen kuin kirjaus changelogiin.                                     |
 | 18.11. | 300        | (5h) Tehty paljon erilaisia parannuksia käyttöliittymään, mm. kirjautumattoman käyttäjän näkymä. Lisäksi uutena ominaisuutena yksittäisen liikkeen tietojen tarkastelu. Tämä ShowMoveView on vielä hyvin karkea ja kaipaa parannuksia. Liikkeiden muokkaus ei ole vielä mahdollista. |
 | 19.11. | 120        | (2h) Tehty viikon 4 tehtäviä liittyen harjoitustyöhön mm. sovelluksen arkkitehtuuri ja päivityksiä vaatimusmäärittelyyn.                                                                                                                                                             |
+| 24.11. | 399        | (6.5h) Tehty liikkeen poistaminen ja muita sekalaisia tehtäviä                                                                                                                                                                                                                       |
+| 25.11. | 439        | (7.5h) Tehty liikkeen muokkaaminen ja muokkaushistoria                                                                                                                                                                                                                               |
 
-Yhteensä 47h
+Yhteensä 61h
