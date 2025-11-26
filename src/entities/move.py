@@ -18,7 +18,7 @@ class Move():
 
     def __init__(self, content, name=None, style=None, age_group=None,
                  difficulty=None, original_creator=None, date_submitted=None,
-                 modifications=[], picture_link=None, reference=None, uid=None):
+                 modifications=None, picture_link=None, reference=None, uid=None):
         """Luokan konstruktori.
 
         Args:
@@ -44,6 +44,10 @@ class Move():
         self.difficulty = difficulty
         self.original_creator = original_creator
         self.date_submitted = date_submitted
+        if modifications is None:
+            self.modifications = []
+        else:
+            self.modifications = modifications
         self.modifications = modifications
         self.content = content
         self.picture_link = picture_link
