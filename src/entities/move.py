@@ -48,7 +48,6 @@ class Move():
             self.modifications = []
         else:
             self.modifications = modifications
-        self.modifications = modifications
         self.content = content
         self.picture_link = picture_link
         self.reference = reference
