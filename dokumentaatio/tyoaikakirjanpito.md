@@ -24,5 +24,6 @@
 | 19.11. | 120        | (2h) Tehty viikon 4 tehtäviä liittyen harjoitustyöhön mm. sovelluksen arkkitehtuuri ja päivityksiä vaatimusmäärittelyyn.                                                                                                                                                             |
 | 24.11. | 399        | (6.5h) Tehty liikkeen poistaminen ja muita sekalaisia tehtäviä                                                                                                                                                                                                                       |
 | 25.11. | 439        | (7.5h) Tehty liikkeen muokkaaminen ja muokkaushistoria                                                                                                                                                                                                                               |
+| 26.11. | 180        | (3h) Sekvenssikaavio ja muita viikon tehtäviä.                                                                                                                                                                                                                                       |
 
-Yhteensä 61h
+Yhteensä 64h
