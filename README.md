@@ -11,7 +11,9 @@ Ohjelman tarkoitus on tallentaa painiliikkeitä joita valmentajat voivat jakaa k
 - [Changelog](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/changelog.md)
 
 ## Asennus
-Projektin juuressa:
+- `cd /tmp`
+- `git clone https://github.com/maggaou/ot-harjoitustyo`
+- `cd ot-harjoitustyo/`
 - riippuvuuksien asennus `poetry install`
 - virtuaaliympäristön aktivointi `eval $(poetry env activate)`
 - tietokannan alustus `invoke build`
