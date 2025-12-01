@@ -14,6 +14,14 @@ class UsernameExistsError(Exception):
     pass
 
 
+class MoveNameIsEmptyError(Exception):
+    pass
+
+
+class NothingHasChangedError(Exception):
+    pass
+
+
 class MovesService:
     """Sovelluslogiikka."""
 
@@ -40,11 +48,16 @@ class MovesService:
 
         Args:
             **args: liikkeen sisältö (content) ja mahdollinen metadata.
+        Raises:
+            MoveNameIsEmpty:
+                Lähettää virheen jos liikkeelle ei ole annettu nimeä.
         Returns:
             Luotu liike (Move-olio).
         """
-        args["original_creator"] = self._user.username
+        if "name" not in args or not args["name"]:
+            raise MoveNameIsEmptyError("Name must be not empty")
 
+        args["original_creator"] = self._user.username
         move = Move(**args)
         return self._moves_repository.create(move)
 
@@ -149,6 +162,30 @@ class MovesService:
         Args:
             **args: liikkeen sisältö (content) ja mahdollinen metadata.
         """
+        editable_fields = [
+            "name",
+            "content",
+            "style",
+            "age_group",
+            "difficulty",
+            "picture_link",
+            "reference",
+        ]
+
+        if "name" not in args or not args["name"]:
+            raise MoveNameIsEmptyError("Name must be not empty")
+
+        move_old = self._moves_repository.find_by_uid(args["uid"])
+        move_old_args = dict(vars(move_old))
+
+        i_have_seen_changes = False
+        for field in editable_fields:
+            if args[field] != move_old_args[field]:
+                i_have_seen_changes = True
+
+        if not i_have_seen_changes:
+            raise NothingHasChangedError("Nothing has changed")
+
         current_date_str = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
         args["modifications"].append(
             (current_date_str, moves_service.get_logged_in_user().username))

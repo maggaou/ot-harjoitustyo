@@ -4,7 +4,9 @@ from entities.move import Move
 from services.moves_service import (
     MovesService,
     InvalidCredentialsError,
-    UsernameExistsError
+    NothingHasChangedError,
+    UsernameExistsError,
+    MoveNameIsEmptyError,
 )
 
 
@@ -15,6 +17,12 @@ class FakeMovesRepository:
     def find_all(self):
         return self.moves
 
+    def find_by_uid(self, uid):
+        for move in self.moves:
+            if move.uid == uid:
+                return move
+        return None
+
     def create(self, move):
         self.moves.append(move)
 
@@ -22,6 +30,10 @@ class FakeMovesRepository:
 
     def delete_all(self):
         self.moves = []
+
+    def modify(self, move):
+        index = self.moves.index(move)
+        self.moves[index] = move
 
 
 class FakeUserRepository:
@@ -63,7 +75,8 @@ class TestMovesService(unittest.TestCase):
     def test_creating_moves_has_correct_creator(self):
         self.login_user(self.u1)
 
-        args = {"content": "my content"}
+        args = {"name": "m1",
+                "content": "my content"}
         self.moves_service.create_move(**args)
 
         moves = self.moves_service.return_all()
@@ -74,7 +87,8 @@ class TestMovesService(unittest.TestCase):
     def test_creating_moves_has_correct_content(self):
         self.login_user(self.u1)
 
-        args = {"content": "my content"}
+        args = {"name": "m1",
+                "content": "my content"}
         self.moves_service.create_move(**args)
 
         moves = self.moves_service.return_all()
@@ -123,3 +137,36 @@ class TestMovesService(unittest.TestCase):
         self.login_user(self.u1)
         self.moves_service.logout()
         self.assertIsNone(self.moves_service.get_logged_in_user())
+
+    def test_create_empty_move(self):
+        args1 = {}
+        args2 = {"name": ""}
+        args3 = {"name": None}
+        self.assertRaises(MoveNameIsEmptyError,
+                          self.moves_service.create_move, **args1)
+        self.assertRaises(MoveNameIsEmptyError,
+                          self.moves_service.create_move, **args2)
+        self.assertRaises(MoveNameIsEmptyError,
+                          self.moves_service.create_move, **args3)
+
+    def test_edit_move_with_empty_name(self):
+        args1 = {}
+        args2 = {"name": ""}
+        args3 = {"name": None}
+        self.assertRaises(MoveNameIsEmptyError,
+                          self.moves_service.edit_move, **args1)
+        self.assertRaises(MoveNameIsEmptyError,
+                          self.moves_service.edit_move, **args2)
+        self.assertRaises(MoveNameIsEmptyError,
+                          self.moves_service.edit_move, **args3)
+
+    def test_edit_move_with_no_changes(self):
+        self.login_user(self.u1)
+        args = {
+            "name": "my nice move 1",
+            "content": "my content"
+        }
+        move = self.moves_service.create_move(**args)
+        args.update(vars(move))
+        self.assertRaises(NothingHasChangedError,
+                          self.moves_service.edit_move, **args)
