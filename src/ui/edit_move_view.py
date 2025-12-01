@@ -1,4 +1,4 @@
-from services.moves_service import moves_service
+from services.moves_service import MoveNameIsEmptyError, NothingHasChangedError, moves_service
 from ui.abstract_create_move import AbstractCreateMoveView
 
 
@@ -26,8 +26,13 @@ class EditMoveView(AbstractCreateMoveView):
         args["picture_link"] = self._entries["picture_link"].get()
         args["reference"] = self._entries["reference"].get()
 
-        moves_service.edit_move(**args)
-        self._handle_action()
+        try:
+            moves_service.edit_move(**args)
+            self._handle_action()
+        except MoveNameIsEmptyError:
+            self._show_error("Move name cannot be empty")
+        except NothingHasChangedError:
+            self._show_error("Nothing has changed")
 
     def _prefill_entries(self):
         move_dict = vars(self.move)

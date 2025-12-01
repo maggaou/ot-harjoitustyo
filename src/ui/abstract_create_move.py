@@ -1,4 +1,4 @@
-from tkinter import StringVar, ttk, constants
+from tkinter import StringVar, font, ttk, constants
 from abc import ABC, abstractmethod
 
 
@@ -21,6 +21,8 @@ class AbstractCreateMoveView(ABC):
         self._frame = None
         self._entries = {}
         self._action_button_text = action
+        self._error_variable = None
+        self._error_label = None
 
         self._initialize()
 
@@ -49,15 +51,27 @@ class AbstractCreateMoveView(ABC):
 
             self._entries[f] = ttk.Entry(master=self._frame)
 
-            label.grid(row=i, column=0, padx=5, pady=5)
-            self._entries[f].grid(row=i, column=1, padx=5, pady=5)
+            label.grid(row=i+1, column=0, padx=5, pady=5)
+            self._entries[f].grid(row=i+1, column=1, padx=5, pady=5)
 
         return len(fields)
 
     def _initialize(self):
         self._frame = ttk.Frame(master=self._frame)
+        error_font = font.Font(family="Helvetica", size=16)
 
-        r = self._initialize_fields()
+        self._error_variable = StringVar(self._frame)
+
+        self._error_label = ttk.Label(
+            master=self._frame,
+            textvariable=self._error_variable,
+            font=error_font,
+            foreground="red",
+        )
+
+        self._error_label.grid(row=0, column=1, padx=10, pady=10)
+
+        r = self._initialize_fields() + 1
 
         action_button = ttk.Button(
             master=self._frame,
@@ -73,9 +87,14 @@ class AbstractCreateMoveView(ABC):
 
         self._frame.grid_columnconfigure(0, weight=1, minsize=400)
 
-        # entry_test = self._entries[0]
-        # text_variable = StringVar(value="text is here")
-        # entry_test.config(textvariable=text_variable)
-
         go_to_moves_button.grid(row=r, column=0, padx=5, pady=5)
         action_button.grid(row=r, column=1, padx=5, pady=5)
+
+        self._hide_error()
+
+    def _show_error(self, message):
+        self._error_variable.set(message)
+        self._error_label.grid()
+
+    def _hide_error(self):
+        self._error_label.grid_remove()

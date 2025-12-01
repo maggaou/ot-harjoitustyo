@@ -1,5 +1,5 @@
 from datetime import datetime
-from services.moves_service import moves_service
+from services.moves_service import MoveNameIsEmptyError, moves_service
 from ui.abstract_create_move import AbstractCreateMoveView
 
 
@@ -31,5 +31,8 @@ class CreateMoveView(AbstractCreateMoveView):
         args["picture_link"] = self._entries["picture_link"].get()
         args["reference"] = self._entries["reference"].get()
 
-        moves_service.create_move(**args)
-        self._handle_action()
+        try:
+            moves_service.create_move(**args)
+            self._handle_action()
+        except MoveNameIsEmptyError:
+            self._show_error("Move name cannot be empty")
