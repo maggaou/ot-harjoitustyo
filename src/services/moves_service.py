@@ -22,6 +22,10 @@ class NothingHasChangedError(Exception):
     pass
 
 
+class TooShortMoveNameError(Exception):
+    pass
+
+
 class MovesService:
     """Sovelluslogiikka."""
 
@@ -56,6 +60,10 @@ class MovesService:
         """
         if "name" not in args or not args["name"]:
             raise MoveNameIsEmptyError("Name must be not empty")
+
+        if len(args["name"]) < 5:
+            raise TooShortMoveNameError(
+                "Move name must be five characters or more")
 
         args["original_creator"] = self._user.username
         move = Move(**args)
@@ -174,6 +182,10 @@ class MovesService:
 
         if "name" not in args or not args["name"]:
             raise MoveNameIsEmptyError("Name must be not empty")
+
+        if len(args["name"]) < 5:
+            raise TooShortMoveNameError(
+                "Move name must be five characters or more")
 
         move_old = self._moves_repository.find_by_uid(args["uid"])
         move_old_args = dict(vars(move_old))

@@ -7,6 +7,7 @@ from services.moves_service import (
     NothingHasChangedError,
     UsernameExistsError,
     MoveNameIsEmptyError,
+    TooShortMoveNameError,
 )
 
 
@@ -75,7 +76,7 @@ class TestMovesService(unittest.TestCase):
     def test_creating_moves_has_correct_creator(self):
         self.login_user(self.u1)
 
-        args = {"name": "m1",
+        args = {"name": "m1 m1 m1",
                 "content": "my content"}
         self.moves_service.create_move(**args)
 
@@ -87,7 +88,7 @@ class TestMovesService(unittest.TestCase):
     def test_creating_moves_has_correct_content(self):
         self.login_user(self.u1)
 
-        args = {"name": "m1",
+        args = {"name": "m1 m1 m1",
                 "content": "my content"}
         self.moves_service.create_move(**args)
 
@@ -170,3 +171,25 @@ class TestMovesService(unittest.TestCase):
         args.update(vars(move))
         self.assertRaises(NothingHasChangedError,
                           self.moves_service.edit_move, **args)
+
+    def test_edit_move_with_short_name(self):
+        self.login_user(self.u1)
+        args = {
+            "name": "my nice move 1",
+            "content": "content",
+        }
+        move = self.moves_service.create_move(**args)
+        args.update(vars(move))
+        args.update({
+            "name": "1234"
+        })
+        self.assertRaises(TooShortMoveNameError,
+                          self.moves_service.edit_move, **args)
+
+    def test_create_move_with_short_name(self):
+        self.login_user(self.u1)
+        args = {
+            "name": "1234",
+        }
+        self.assertRaises(TooShortMoveNameError,
+                          self.moves_service.create_move, **args)
