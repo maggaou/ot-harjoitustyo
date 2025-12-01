@@ -1,6 +1,9 @@
 # Moves
 Ohjelman tarkoitus on tallentaa painiliikkeitä joita valmentajat voivat jakaa keskenään. Tietojen talennus tapahtuu lokaalisti markdown tiedostojen avulla.
 
+## Releases
+- [Viikko 5](https://github.com/maggaou/ot-harjoitustyo/releases/tag/viikko5)
+
 ## Dokumentaatio
 - [Vaatimusmäärittely](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
 - [Arkkitehtuurikuvaus](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
