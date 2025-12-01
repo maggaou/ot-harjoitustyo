@@ -1,5 +1,6 @@
 from tkinter import ttk, constants
 from tkinter import font
+from datetime import datetime
 from services.moves_service import moves_service
 
 
@@ -34,7 +35,7 @@ class MovesListView:
         underline_font = font.Font(family="Helvetica", size=13, underline=True)
         label = ttk.Label(
             master=item_frame,
-            text=move.name,
+            text=move.name + " (" + move.date_submitted + ")",
             foreground="cyan",
             cursor="cross",
             font=underline_font
@@ -94,8 +95,17 @@ class MovesView:
         if self._moves_list_view:
             self._moves_list_view.destroy()
 
+        sort = {
+            "added": lambda x: x.uid,
+            "name": lambda x: x.name,
+            "modified": lambda x: (
+                datetime.strptime(x.modifications[-1][0], "%d.%m.%Y %H:%M:%S")
+                if x.modifications
+                else datetime.strptime(x.date_submitted, "%d.%m.%Y")
+            )
+        }
         moves = moves_service.return_all()
-
+        moves.sort(key=sort["added"])
         self._moves_list_view = MovesListView(
             self._moves_list_frame,
             moves,
