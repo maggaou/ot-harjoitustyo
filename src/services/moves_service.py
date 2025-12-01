@@ -61,12 +61,14 @@ class MovesService:
         if "name" not in args or not args["name"]:
             raise MoveNameIsEmptyError("Name must be not empty")
 
-        if len(args["name"]) < 5:
+        args_clean = self._clean_args(args)
+
+        if len(args_clean["name"]) < 5:
             raise TooShortMoveNameError(
                 "Move name must be five characters or more")
 
-        args["original_creator"] = self._user.username
-        move = Move(**args)
+        args_clean["original_creator"] = self._user.username
+        move = Move(**args_clean)
         return self._moves_repository.create(move)
 
     def return_all(self):
@@ -183,27 +185,38 @@ class MovesService:
         if "name" not in args or not args["name"]:
             raise MoveNameIsEmptyError("Name must be not empty")
 
-        if len(args["name"]) < 5:
+        args_clean = self._clean_args(args)
+
+        if len(args_clean["name"]) < 5:
             raise TooShortMoveNameError(
                 "Move name must be five characters or more")
 
-        move_old = self._moves_repository.find_by_uid(args["uid"])
+        move_old = self._moves_repository.find_by_uid(args_clean["uid"])
         move_old_args = dict(vars(move_old))
 
         i_have_seen_changes = False
         for field in editable_fields:
-            if args[field] != move_old_args[field]:
+            if args_clean[field] != move_old_args[field]:
                 i_have_seen_changes = True
 
         if not i_have_seen_changes:
             raise NothingHasChangedError("Nothing has changed")
 
         current_date_str = datetime.now().strftime("%d.%m.%Y %H:%M:%S")
-        args["modifications"].append(
+        args_clean["modifications"].append(
             (current_date_str, moves_service.get_logged_in_user().username))
 
-        move = Move(**args)
+        move = Move(**args_clean)
         self._moves_repository.modify(move)
+
+    @staticmethod
+    def _clean_args(args):
+        args_copy = dict(args)
+        for field in args:
+            if args[field] and isinstance(args[field], str):
+                args_copy[field] = args[field].strip()
+
+        return args_copy
 
 
 moves_service = MovesService()

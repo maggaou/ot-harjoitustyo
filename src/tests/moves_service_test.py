@@ -193,3 +193,21 @@ class TestMovesService(unittest.TestCase):
         }
         self.assertRaises(TooShortMoveNameError,
                           self.moves_service.create_move, **args)
+
+    def test_create_move_with_extra_whitespace(self):
+        self.login_user(self.u1)
+        args1 = {
+            "name": "          "
+        }
+        args2 = {
+            "name": "  moi"
+        }
+        args3 = {
+            "name": "moi  "
+        }
+        self.assertRaises(TooShortMoveNameError,
+                          self.moves_service.create_move, **args1)
+        self.assertRaises(TooShortMoveNameError,
+                          self.moves_service.create_move, **args2)
+        self.assertRaises(TooShortMoveNameError,
+                          self.moves_service.create_move, **args3)
