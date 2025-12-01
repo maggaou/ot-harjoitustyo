@@ -52,7 +52,7 @@ class Move():
         self.picture_link = picture_link
         self.reference = reference
 
-        self.uid = uid or str(uuid.uuid4())
+        self.uid = uid or str(uuid.uuid1())
 
     def __eq__(self, other):
         if not isinstance(other, Move):
