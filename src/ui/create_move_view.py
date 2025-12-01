@@ -1,5 +1,5 @@
 from datetime import datetime
-from services.moves_service import MoveNameIsEmptyError, moves_service
+from services.moves_service import MoveNameIsEmptyError, TooShortMoveNameError, moves_service
 from ui.abstract_create_move import AbstractCreateMoveView
 
 
@@ -36,3 +36,5 @@ class CreateMoveView(AbstractCreateMoveView):
             self._handle_action()
         except MoveNameIsEmptyError:
             self._show_error("Move name cannot be empty")
+        except TooShortMoveNameError:
+            self._show_error("Move name is too short")

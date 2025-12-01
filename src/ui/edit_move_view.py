@@ -1,4 +1,4 @@
-from services.moves_service import MoveNameIsEmptyError, NothingHasChangedError, moves_service
+from services.moves_service import MoveNameIsEmptyError, NothingHasChangedError, TooShortMoveNameError, moves_service
 from ui.abstract_create_move import AbstractCreateMoveView
 
 
@@ -33,6 +33,8 @@ class EditMoveView(AbstractCreateMoveView):
             self._show_error("Move name cannot be empty")
         except NothingHasChangedError:
             self._show_error("Nothing has changed")
+        except TooShortMoveNameError:
+            self._show_error("Move name is too short")
 
     def _prefill_entries(self):
         move_dict = vars(self.move)
