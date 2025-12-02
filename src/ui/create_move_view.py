@@ -18,7 +18,7 @@ class CreateMoveView(AbstractCreateMoveView):
 
     def _form_action_handler(self):
         current_date = datetime.now()
-        formatted_date = current_date.strftime("%d.%m.%Y")
+        formatted_date = current_date.strftime("%d.%m.%Y %H:%M:%S")
         original_creator = moves_service.get_logged_in_user().username
         args = {"original_creator": original_creator,
                 "date_submitted": formatted_date}

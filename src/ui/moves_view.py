@@ -1,4 +1,4 @@
-from tkinter import ttk, constants
+from tkinter import Radiobutton, StringVar, ttk, constants
 from tkinter import font
 from datetime import datetime
 from services.moves_service import moves_service
@@ -25,31 +25,63 @@ class MovesListView:
         self._initialize()
 
     def _initialize(self):
+        bold_font = font.Font(family="Helvetica", size=13, weight="bold")
         self._frame = ttk.Frame(master=self._root)
+        added_label = ttk.Label(
+            master=self._frame,
+            text="Added",
+            font=bold_font,
+        )
+        modified_label = ttk.Label(
+            master=self._frame,
+            text="Modified",
+            font=bold_font,
+        )
+        name_label = ttk.Label(
+            master=self._frame,
+            text="Name",
+            font=bold_font,
+        )
+        added_label.grid(row=0, column=0, sticky=constants.W)
+        modified_label.grid(row=0, column=1, sticky=constants.W)
+        name_label.grid(row=0, column=2, sticky=constants.W)
 
-        for move in self._moves:
-            self._initialize_move_item(move)
+        for row, move in enumerate(self._moves):
+            self._initialize_move_item(move, row+1)
 
-    def _initialize_move_item(self, move):
-        item_frame = ttk.Frame(master=self._frame)
+    def _initialize_move_item(self, move, row):
         underline_font = font.Font(family="Helvetica", size=13, underline=True)
-        label = ttk.Label(
-            master=item_frame,
-            text=move.name + " (" + move.date_submitted + ")",
+        normal_font = font.Font(family="Helvetica", size=13)
+        name_label = ttk.Label(
+            master=self._frame,
+            text=move.name,
             foreground="cyan",
             cursor="cross",
             font=underline_font
         )
 
-        label.grid(row=0, column=0, pady=5)
-        label.bind(
+        name_label.grid(row=row, column=2, pady=5, sticky=constants.W)
+        name_label.bind(
             "<Button-1>", lambda event: self._handle_show_move_view(move.uid))
 
-        item_frame.grid_columnconfigure(0, weight=1)
-        item_frame.pack(fill=constants.X)
+        modified_label = ttk.Label(
+            master=self._frame,
+            text=move.modifications[-1][0] if move.modifications else "-",
+            foreground="cyan",
+            font=normal_font,
+        )
+        modified_label.grid(row=row, column=1, pady=5, sticky=constants.W)
+
+        added_label = ttk.Label(
+            master=self._frame,
+            text=move.date_submitted,
+            foreground="cyan",
+            font=normal_font,
+        )
+        added_label.grid(row=row, column=0, pady=5, sticky=constants.W)
 
     def pack(self):
-        self._frame.pack(fill=constants.X)
+        self._frame.pack(padx=10, pady=12)
 
     def destroy(self):
         self._frame.destroy()
@@ -75,6 +107,7 @@ class MovesView:
         self._handle_show_login = handle_show_login
         self._handle_show_move_view = handle_show_move_view
         self._user = moves_service.get_logged_in_user()
+        self._sort_var = None
         self._frame = None
         self._moves_list_frame = None
         self._moves_list_view = None
@@ -96,22 +129,29 @@ class MovesView:
             self._moves_list_view.destroy()
 
         sort = {
-            "added": lambda x: x.uid,
+            "added": lambda x: datetime.strptime(x.date_submitted, "%d.%m.%Y %H:%M:%S"),
             "name": lambda x: x.name,
             "modified": lambda x: (
                 datetime.strptime(x.modifications[-1][0], "%d.%m.%Y %H:%M:%S")
                 if x.modifications
-                else datetime.strptime(x.date_submitted, "%d.%m.%Y")
+                else
+                datetime.strptime(x.date_submitted, "%d.%m.%Y %H:%M:%S")
             )
         }
         moves = moves_service.return_all()
-        moves.sort(key=sort["added"])
-        self._moves_list_view = MovesListView(
-            self._moves_list_frame,
-            moves,
-            self._handle_show_move_view,
-        )
 
+        if not moves:
+            self._moves_list_view = ttk.Label(
+                self._moves_list_frame,
+                text="No moves created yet",
+                )
+        else:
+            moves.sort(key=sort[self._sort_var.get()])
+            self._moves_list_view = MovesListView(
+                self._moves_list_frame,
+                moves,
+                self._handle_show_move_view,
+            )
         self._moves_list_view.pack()
 
     def _initialize_header(self):
@@ -138,6 +178,28 @@ class MovesView:
             command=self._handle_show_login
         )
         user_label.grid(row=0, column=0, padx=10, pady=10)
+
+        self._sort_var = StringVar(master=self._frame, value="added")
+
+        sort_frame = ttk.Frame(master=self._frame)
+
+        sort_label = ttk.Label(
+            master=sort_frame,
+            text="Select sort:",
+        )
+
+        sort_label.pack(side=constants.LEFT)
+
+        for sort in ["added", "name", "modified"]:
+            Radiobutton(
+                master=sort_frame,
+                text=sort,
+                value=sort,
+                variable=self._sort_var,
+                command=self._initialize_moves_list,
+            ).pack(side=constants.LEFT)
+        
+        sort_frame.grid(row=1, padx=10, sticky=constants.W)
 
         if self._user:
             logout_button.grid(
@@ -169,9 +231,9 @@ class MovesView:
         self._initialize_moves_list()
 
         self._moves_list_frame.grid(
-            row=1,
+            row=2,
             column=0,
-            columnspan=2,
+            sticky=constants.W,
         )
 
         self._frame.grid_columnconfigure(0, weight=1, minsize=400)
