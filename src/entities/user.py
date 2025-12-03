@@ -23,13 +23,13 @@ class User:
         self.password = password
 
     def __eq__(self, other):
-        """Käyttäjän vertailu (yhtäsuuruus).
+        """Käyttäjän yhtäsuuruus käyttäjänimien perusteella.
 
         Args:
-            other (obj): mikä tahansa objekti.
+            other (User): vertailtava käyttäjä.
 
         Returns:
-            boolean: vertailun tulos
+            bool: True jos käyttäjänimet ovat samat, muuten False
         """
 
         if not isinstance(other, User):
@@ -37,9 +37,6 @@ class User:
         return self.username == other.username
 
     def __repr__(self):
-        """Käyttäjän merkkijonoesitys. 
+        """Käyttäjän merkkijonoesitys käyttäjänimen perusteella."""
 
-        Returns:
-            str: käyttäjän merkkijonoesitys
-        """
         return self.username

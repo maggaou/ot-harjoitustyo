@@ -55,13 +55,13 @@ class Move():
         self.uid = uid or str(uuid.uuid1())
 
     def __eq__(self, other):
-        """Vertailu (yhtäsuuruus).
+        """Liikkeiden yhtäsuuruus uid:n perusteella.
 
         Args:
-            other (obj): mikä tahansa objekti
+            other (Move): vertailtava liike
 
         Returns:
-            boolean: vertailun tulos
+            bool: True jos liikkeiden uid:t ovat samat, muuten False.
         """
         if not isinstance(other, Move):
             return False
