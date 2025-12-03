@@ -95,3 +95,49 @@ Huom. suorita `git checkout 4f2b2f98c64c93ba69896d216a0818d46b9c1c50` ennen ohje
 - sama ongelma on myös liikkeen muokkauksessa
 - liikkeen luomisen lomakkeessa ei ole monivalintaelementtejä
 - moves-näkymä ei käytä liikkeiden listauksessa mitään ennaltamääriteltyä järjestystä
+
+## Viikko 6
+
+### Muutokset:
+- näytä käyttäjälle virheet liikkeen luonnissa ja muokkauksessa:
+    - luonti: liikkeellä pitää olla vähintään nimi ja sen täytyy olla vähintään 5 merkkiä
+    - muokkaus: älä salli muokkausta joka ei muokkaa mitään
+    - muokkaus: älä salli muokkausta jos nimeä ei ole tai jos se on liian lyhyt
+- poista ylimääräiset välilyönnit lomaketiedoista liikkeen luonnissa/muokkauksessa
+    - näin ollen välilyönnin lisääminen ei ole sallittu muokkaus
+- liikkeiden järjestäminen päänäkymässä
+    - järjestä lisäyksen, muokkauksen tai nimen perusteella
+    - oletus on lisäyksen perusteella
+    - jos liikettä ei ole muokattu niin järjestä lisäyksen perusteella
+- näytä päänäkymän listassa added/modified/name sarakkeet
+- tallenna lisäyksestä myös tarkka kellonaika
+- näytä "No moves created yet" jos liikkeitä ei ole luotu
+- kuvan näyttäminen liikkeen näkymässä:
+    - näytä kuva picture link kentän perusteella (http tai https linkki)
+    - kuvan leveys on aina 300px
+    - kuvan korkeus skaalautuu kuvasuhteen mukaan
+    - näytä "No image to display" jos picture link kenttä on tyhjä
+    - näytä "Invalid URL: no scheme supplied" jos linkistä puuttuu http jne
+    - näytä "Invalid URL: no host supplied" jos linkki on pelkkä http:// jne
+    - näytä "Invalid URL: connection error" jos linkki on muuten virheellinen
+    - näytä "Invalid URL: not an image file" jos linkki on toimiva mutta ei sisällä kuvaa
+    - näytä "Image read timed out" jos http-kyselyyn ei tule vastausta aikarajan sisällä (0.5 sekuntia)
+- jos picture link kenttä on yli 350 merkkiä, niin näytä se useammalla rivillä
+
+Testi linkkejä:
+
+https://github.com
+(not an image file)
+
+https://www.bjjee.com/wp-content/uploads/2022/02/Head-Arm-Throw.jpg
+(ok linkki)
+
+https://i.ytimg.com/vi/lBRACHYmQ48/maxresdefault.jpg
+(ok linkki)
+
+https://
+(no host supplied)
+
+https://a
+(connection error)
+
