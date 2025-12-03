@@ -5,7 +5,7 @@ from services.moves_service import moves_service
 
 
 class MovesListView:
-    """Liikkeiden lista-näkymä."""
+    """Liikkeiden lista-näkymä (osana näkymää MovesView)."""
 
     def __init__(self, root, moves, handle_show_move_view):
         """Luokan konstruktori.
@@ -115,9 +115,11 @@ class MovesView:
         self._initialize()
 
     def pack(self):
+        """Näkymän näyttäminen."""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Näkymän tuhoaminen."""
         self._frame.destroy()
 
     def _logout_handler(self):
