@@ -101,9 +101,11 @@ class LoginView:
         self._password_entry.grid(padx=10, pady=10)
 
     def pack(self):
+        """Näkymän näyttäminen."""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Näkymän tuhoaminen."""
         self._frame.destroy()
 
     def _login_handler(self):

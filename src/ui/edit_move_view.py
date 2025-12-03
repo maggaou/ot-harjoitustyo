@@ -3,6 +3,8 @@ from ui.abstract_create_move import AbstractCreateMoveView
 
 
 class EditMoveView(AbstractCreateMoveView):
+    """Liikkeen muokkaamisen näkymä."""
+
     def __init__(self, root, move, handle_edit_move, handle_show_moves):
         """Luokan konstruktori.
 
@@ -14,10 +16,10 @@ class EditMoveView(AbstractCreateMoveView):
         """
         super().__init__(root, lambda: handle_edit_move(
             move.uid), handle_show_moves, "Confirm")
-        self.move = move
+        self._move = move
 
     def _form_action_handler(self):
-        args = dict(vars(self.move))
+        args = dict(vars(self._move))
         args["name"] = self._entries["name"].get()
         args["content"] = self._entries["content"].get()
         args["style"] = self._entries["style"].get()
@@ -37,10 +39,11 @@ class EditMoveView(AbstractCreateMoveView):
             self._show_error("Move name is too short")
 
     def _prefill_entries(self):
-        move_dict = vars(self.move)
+        move_dict = vars(self._move)
         for f, entry in self._entries.items():
             entry.insert(0, move_dict[f])
 
     def pack(self):
+        """Näkymän näyttäminen."""
         super().pack()
         self._prefill_entries()

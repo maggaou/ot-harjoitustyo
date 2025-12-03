@@ -100,9 +100,11 @@ class CreateUserView:
         self._password_entry.grid(padx=10, pady=10)
 
     def pack(self):
+        """Näytä näkymä."""
         self._frame.pack(fill=constants.X)
 
     def destroy(self):
+        """Tuhoa näkymä."""
         self._frame.destroy()
 
     def _create_user_handler(self):
