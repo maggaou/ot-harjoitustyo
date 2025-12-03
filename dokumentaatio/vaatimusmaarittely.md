@@ -1,14 +1,9 @@
 ## Vaatimusmäärittely
 
-> [!NOTE]
-> Sijoita _vaatimusmaarittely.md_-tiedosto repositorioon _dokumentaatio_-hakemistoon ja lisää repositorion _README.md_-tiedostoon _vaatimusmaarittely.md_ -tiedostoon vievä linkki.
-
-----
-
-Ohjelman tarkoitus on tallentaa painiliikkeitä joita valmentajat voivat jakaa keskenään. Tietojen talennus tapahtuu lokaalisti markdown tiedostojen avulla.
+Ohjelman tarkoitus on tallentaa painiliikkeitä joita valmentajat voivat jakaa keskenään. Liikkeiden talennus tapahtuu tekstitiedostojen avulla jotka sisältävät YAML-metatieto osion.
 
 ### Käyttäjät
-Sovelluksessa valmentajat ovat eri käyttäjiä. Lisäksi ohjelmassa voisi olla myös pääkäyttäjiä jotka pystyvät tekemään enemmän muutoksia ohjelman toimintaan.
+Sovelluksessa valmentajat ovat eri käyttäjiä.
 
 ### Perusversio: kurssin alkupuolen toteutus
 
@@ -44,15 +39,6 @@ Käyttöliittymässä pystyy asettamaan seuraavat metatiedot ✅
 - painiliikkeiden editointi tai poisto ✅
 - monivalinta elementit liikkeen tallennuksessa/muokkaamisessa
 - liikkeen muokkaushistorian tarkastelu (kuka on muokannut ja milloin) ✅
-- kuvien näyttäminen ShowMoveView-näkymässä
-- kuvien näyttäminen listauksessa
-- paikallisten kuvien käyttö
-- listauksen järjestyksen muuttaminen
-- tekstihaku
-- haku metatietojen perusteella
-- markdown tiedostojen renderöinti
-
-Pääkäyttäjä:
-- ikäryhmien lisääminen/muutto
-- poistojen vahvistus
-
+- kuvien näyttäminen ShowMoveView-näkymässä ✅
+- näytä relevantit virheilmoitukset liikkeen luonnissa/muokkauksessa ✅
+- listauksen järjestyksen muuttaminen ✅
