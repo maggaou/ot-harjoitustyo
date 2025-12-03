@@ -42,9 +42,9 @@ class MovesListView:
             text="Name",
             font=bold_font,
         )
-        added_label.grid(row=0, column=0, sticky=constants.W)
-        modified_label.grid(row=0, column=1, sticky=constants.W)
-        name_label.grid(row=0, column=2, sticky=constants.W)
+        added_label.grid(row=0, column=0, padx=20 ,sticky=constants.W)
+        modified_label.grid(row=0, column=1, padx=20, sticky=constants.W)
+        name_label.grid(row=0, column=2, padx=20, sticky=constants.W)
 
         for row, move in enumerate(self._moves):
             self._initialize_move_item(move, row+1)
@@ -60,7 +60,7 @@ class MovesListView:
             font=underline_font
         )
 
-        name_label.grid(row=row, column=2, pady=5, sticky=constants.W)
+        name_label.grid(row=row, column=2, padx=20, pady=5, sticky=constants.W)
         name_label.bind(
             "<Button-1>", lambda event: self._handle_show_move_view(move.uid))
 
@@ -70,7 +70,7 @@ class MovesListView:
             foreground="cyan",
             font=normal_font,
         )
-        modified_label.grid(row=row, column=1, pady=5, sticky=constants.W)
+        modified_label.grid(row=row, column=1, padx=20, pady=5, sticky=constants.W)
 
         added_label = ttk.Label(
             master=self._frame,
@@ -78,12 +78,14 @@ class MovesListView:
             foreground="cyan",
             font=normal_font,
         )
-        added_label.grid(row=row, column=0, pady=5, sticky=constants.W)
+        added_label.grid(row=row, column=0, padx=20, pady=5, sticky=constants.W)
 
     def pack(self):
+        """Näkymän näyttäminen."""
         self._frame.pack(padx=10, pady=12)
 
     def destroy(self):
+        """Näkymän tuhoaminen."""
         self._frame.destroy()
 
 
