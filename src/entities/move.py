@@ -55,12 +55,28 @@ class Move():
         self.uid = uid or str(uuid.uuid1())
 
     def __eq__(self, other):
+        """Vertailu (yhtäsuuruus).
+
+        Args:
+            other (obj): mikä tahansa objekti
+
+        Returns:
+            boolean: vertailun tulos
+        """
         if not isinstance(other, Move):
             return False
         return other.uid == self.uid
 
     @staticmethod
     def order(attr):
+        """Kertoo missä järjestyksessä liikkeen tiedot näytetään.
+
+        Args:
+            attr (str): liikkeen kenttä
+
+        Returns:
+            int: järjestysnumero
+        """
         order = [
             "name",
             "style",

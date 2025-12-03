@@ -7,7 +7,7 @@ from entities.user import User
 class UserRepository():
 
     def __init__(self, connection):
-        """Luokan konstruktori
+        """Luokan konstruktori.
 
         Args:
             connection: tietokantayhteyden Connection-objekti
@@ -15,8 +15,8 @@ class UserRepository():
         self._connection = connection
 
     def delete_all(self):
-        """Tyhjentää Users-taulun
-        """
+        """Tyhjentää Users-taulun."""
+
         cursor = self._connection.cursor()
 
         cursor.execute("delete from Users")
@@ -24,7 +24,7 @@ class UserRepository():
         self._connection.commit()
 
     def create(self, user):
-        """Käyttäjän tallennus (Users-taulun schema)
+        """Käyttäjän tallennus (Users-taulun schema).
 
         Args:
             user: tallennettava käyttäjä (User olio)
@@ -45,7 +45,7 @@ class UserRepository():
         return user
 
     def find_all(self):
-        """Palauttaa kaikki valmentajat
+        """Palauttaa kaikki valmentajat.
 
         Returns:
             Lista (User-oliot)
@@ -59,12 +59,12 @@ class UserRepository():
 
         users = []
         for row in rows:
-            u = create_user_by_row(row)
+            u = _create_user_by_row(row)
             users.append(u)
         return users
 
     def find_by_username(self, username):
-        """Hae valmentaja käyttäjänimellä
+        """Hae valmentaja käyttäjänimellä.
 
         Returns:
             User-olio jos kyseinen valmentaja löytyy, muuten None
@@ -78,10 +78,10 @@ class UserRepository():
 
         row = cursor.fetchone()
 
-        return create_user_by_row(row)
+        return _create_user_by_row(row)
 
 
-def create_user_by_row(row):
+def _create_user_by_row(row):
     if row:
         u = User(name=row["name"], team=row["team"],
                  username=row["username"], password=row["password"])

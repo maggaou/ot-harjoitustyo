@@ -5,26 +5,25 @@ from entities.move import Move
 
 
 class MovesRepository:
-    """Liikkeiden tallennus tekstitiedostoina.
-    """
+    """Liikkeiden tallennus tekstitiedostoina."""
 
     def __init__(self, directory):
-        """Luokan konstruktori
+        """Luokan konstruktori.
 
         Args:
             directory: kansio johon tekstitiedostot tallennetaan
         """
         self.directory = directory
-        self.make_sure_that_directory_exists()
+        self._make_sure_that_directory_exists()
 
     def delete_all(self):
-        """ Poista kaikki paikallisesti tallennetut liikkeet.
-        """
+        """ Poista kaikki paikallisesti tallennetut liikkeet."""
+
         for file in Path(self.directory).glob("*.md"):
             file.unlink()
 
     def delete(self, move):
-        """ Poista yksittäinen liike.
+        """Poista yksittäinen liike.
 
         Args:
             move: move-objekti.
@@ -33,8 +32,8 @@ class MovesRepository:
         file_path.unlink()
 
     def create(self, move):
-        """Tallenna liike tiedostoihin.
-        """
+        """Tallenna liike tiedostoihin."""
+
         file_path = Path(self.directory) / (move.uid + ".md")
         metadata = dict(move.__dict__)
         content = metadata.pop("content")
@@ -88,7 +87,7 @@ class MovesRepository:
 
         return moves
 
-    def make_sure_that_directory_exists(self):
+    def _make_sure_that_directory_exists(self):
         path = Path(self.directory)
         if not path.exists():
             path.mkdir()
