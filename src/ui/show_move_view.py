@@ -5,6 +5,7 @@ from PIL import Image, ImageTk, UnidentifiedImageError
 from services.moves_service import moves_service
 from entities.move import Move
 
+
 class ShowMoveView:
     """Yksittäisen liikkeen näkymä."""
 
@@ -138,20 +139,21 @@ class ShowMoveView:
                                     pady=5, padx=30, sticky=constants.E)
             modify_move_button.grid(row=final_row+1, column=1,
                                     pady=5, padx=30, sticky=constants.E)
-        
+
         self._photo_frame.grid(row=0, column=0, sticky=constants.W)
-        self._data_frame.grid(row=0, column=1,sticky=constants.NW)
-        
+        self._data_frame.grid(row=0, column=1, sticky=constants.NW)
+
         if not self._move.picture_link:
             self._error_text.set("No image to display")
             self._error_label.pack()
             return
-    
+
         try:
             image_pil = self._load_image_from_url(self._move.picture_link)
             self._photo = ImageTk.PhotoImage(image_pil)
-            
-            image_label = ttk.Label(master=self._photo_frame, image=self._photo)
+
+            image_label = ttk.Label(
+                master=self._photo_frame, image=self._photo)
             image_label.pack()
         except exceptions.MissingSchema:
             self._error_text.set("Invalid URL: no scheme supplied")

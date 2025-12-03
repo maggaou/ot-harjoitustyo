@@ -42,7 +42,7 @@ class MovesListView:
             text="Name",
             font=bold_font,
         )
-        added_label.grid(row=0, column=0, padx=20 ,sticky=constants.W)
+        added_label.grid(row=0, column=0, padx=20, sticky=constants.W)
         modified_label.grid(row=0, column=1, padx=20, sticky=constants.W)
         name_label.grid(row=0, column=2, padx=20, sticky=constants.W)
 
@@ -70,7 +70,8 @@ class MovesListView:
             foreground="cyan",
             font=normal_font,
         )
-        modified_label.grid(row=row, column=1, padx=20, pady=5, sticky=constants.W)
+        modified_label.grid(row=row, column=1, padx=20,
+                            pady=5, sticky=constants.W)
 
         added_label = ttk.Label(
             master=self._frame,
@@ -78,7 +79,8 @@ class MovesListView:
             foreground="cyan",
             font=normal_font,
         )
-        added_label.grid(row=row, column=0, padx=20, pady=5, sticky=constants.W)
+        added_label.grid(row=row, column=0, padx=20,
+                         pady=5, sticky=constants.W)
 
     def pack(self):
         """Näkymän näyttäminen."""
@@ -148,7 +150,7 @@ class MovesView:
             self._moves_list_view = ttk.Label(
                 self._moves_list_frame,
                 text="No moves created yet",
-                )
+            )
         else:
             moves.sort(key=sort[self._sort_var.get()])
             self._moves_list_view = MovesListView(
@@ -202,7 +204,7 @@ class MovesView:
                 variable=self._sort_var,
                 command=self._initialize_moves_list,
             ).pack(side=constants.LEFT)
-        
+
         sort_frame.grid(row=1, padx=10, sticky=constants.W)
 
         if self._user:
