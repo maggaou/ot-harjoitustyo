@@ -1,7 +1,9 @@
-from tkinter import font, ttk, constants
+from tkinter import StringVar, font, ttk, constants
+import requests
+from requests import exceptions
+from PIL import Image, ImageTk, UnidentifiedImageError
 from services.moves_service import moves_service
 from entities.move import Move
-
 
 class ShowMoveView:
     """Yksittäisen liikkeen näkymä."""
@@ -23,7 +25,11 @@ class ShowMoveView:
         self._handle_delete_move = handle_delete_move
         self._handle_edit_move = lambda: handle_edit_move(move)
         self._frame = None
-
+        self._photo = None
+        self._photo_frame = None
+        self._data_frame = None
+        self._error_label = None
+        self._error_text = None
         self._initialize()
 
     def pack(self):
@@ -47,15 +53,16 @@ class ShowMoveView:
             text_field_value = move_dict[field]
 
             field_name_label = ttk.Label(
-                self._frame, text=text_field_name, font=bold_font, foreground="cyan")
+                self._data_frame, text=text_field_name, font=bold_font, foreground="cyan")
 
-            field_value_frame = ttk.Frame(self._frame)
+            field_value_frame = ttk.Frame(self._data_frame)
 
             if isinstance(text_field_value, str):
                 field_value_label = ttk.Label(
                     field_value_frame,
                     text=text_field_value,
                     font=normal_font,
+                    wraplength=350,
                 )
                 field_value_label.grid()
             if isinstance(text_field_value, list):
@@ -79,25 +86,45 @@ class ShowMoveView:
         moves_service.delete_move(self._move)
         self._handle_delete_move()
 
+    @staticmethod
+    def _load_image_from_url(url):
+        image = Image.open(requests.get(url, stream=True, timeout=0.5).raw)
+        width, height = image.size
+        new_width = 300
+        new_height = int((new_width / width) * height)
+        image = image.resize((new_width, new_height))
+        return image
+
     def _initialize(self):
         self._frame = ttk.Frame(master=self._root)
+        self._data_frame = ttk.Frame(master=self._frame)
+        self._photo_frame = ttk.Frame(master=self._frame)
+
+        normal_font = font.Font(family="Helvetica", size=13)
+
+        self._error_text = StringVar(self._photo_frame)
+        self._error_label = ttk.Label(
+            master=self._photo_frame,
+            textvariable=self._error_text,
+            font=normal_font,
+        )
 
         final_row = self._initialize_rows()
 
         show_moves_button = ttk.Button(
-            master=self._frame,
+            master=self._data_frame,
             text="Back",
             command=self._handle_show_moves
         )
 
         delete_move_button = ttk.Button(
-            master=self._frame,
+            master=self._data_frame,
             text="Delete",
             command=self._delete_move,
         )
 
         modify_move_button = ttk.Button(
-            master=self._frame,
+            master=self._data_frame,
             text="Edit",
             command=self._handle_edit_move,
         )
@@ -111,3 +138,33 @@ class ShowMoveView:
                                     pady=5, padx=30, sticky=constants.E)
             modify_move_button.grid(row=final_row+1, column=1,
                                     pady=5, padx=30, sticky=constants.E)
+        
+        self._photo_frame.grid(row=0, column=0, sticky=constants.W)
+        self._data_frame.grid(row=0, column=1,sticky=constants.NW)
+        
+        if not self._move.picture_link:
+            self._error_text.set("No image to display")
+            self._error_label.pack()
+            return
+    
+        try:
+            image_pil = self._load_image_from_url(self._move.picture_link)
+            self._photo = ImageTk.PhotoImage(image_pil)
+            
+            image_label = ttk.Label(master=self._photo_frame, image=self._photo)
+            image_label.pack()
+        except exceptions.MissingSchema:
+            self._error_text.set("Invalid URL: no scheme supplied")
+            self._error_label.pack()
+        except exceptions.InvalidURL:
+            self._error_text.set("Invalid URL: no host supplied")
+            self._error_label.pack()
+        except exceptions.ConnectionError:
+            self._error_text.set("Invalid URL: connection error")
+            self._error_label.pack()
+        except UnidentifiedImageError:
+            self._error_text.set("Invalid URL: not an image file")
+            self._error_label.pack()
+        except exceptions.ReadTimeout:
+            self._error_text.set("Image read timed out. (read timeout=0.5)")
+            self._error_label.pack()
