@@ -5,20 +5,20 @@ from abc import ABC, abstractmethod
 class AbstractCreateMoveView(ABC):
     """Liikkeiden lisäämisen tai muokkaamisen näkymä."""
 
-    def __init__(self, root, handle_action, handle_show_moves, action):
+    def __init__(self, root, handle_action, handle_go_back, action):
         """Luokan konstruktori.
 
         Args:
             root: tkinter ikkuna yms.
             handle_action: näkymä luomisen/muokkaamisen jälkeen.
-            handle_show_moves: palaaminen takaisin päänäkymään.
+            handle_go_back: takaisin palaamisen näkymä.
             action: näkymän toiminto (teksti).
         """
 
         self._root = root
         self._handle_action = handle_action
-        self._handle_show_moves = handle_show_moves
-        self._frame = None
+        self._handle_go_back = handle_go_back
+        self._main_frame = None
         self._entries = {}
         self._action_button_text = action
         self._error_variable = None
@@ -28,14 +28,14 @@ class AbstractCreateMoveView(ABC):
 
     def pack(self):
         """Näkymän näyttäminen."""
-        self._frame.pack(fill=constants.X)
+        self._main_frame.pack(fill=constants.X)
 
     def destroy(self):
         """Näkymän tuhoaminen."""
-        self._frame.destroy()
+        self._main_frame.destroy()
 
     def _go_to_back_handler(self):
-        self._handle_show_moves()
+        self._handle_go_back()
 
     @abstractmethod
     def _form_action_handler(self):
@@ -47,9 +47,9 @@ class AbstractCreateMoveView(ABC):
 
         for i, f in enumerate(fields):
             label_text = f.capitalize().replace('_', ' ')
-            label = ttk.Label(master=self._frame, text=label_text)
+            label = ttk.Label(master=self._main_frame, text=label_text)
 
-            self._entries[f] = ttk.Entry(master=self._frame)
+            self._entries[f] = ttk.Entry(master=self._main_frame)
 
             label.grid(row=i+1, column=0, padx=5, pady=5)
             self._entries[f].grid(row=i+1, column=1, padx=5, pady=5)
@@ -57,13 +57,13 @@ class AbstractCreateMoveView(ABC):
         return len(fields)
 
     def _initialize(self):
-        self._frame = ttk.Frame(master=self._frame)
+        self._main_frame = ttk.Frame(master=self._main_frame)
         error_font = font.Font(family="Helvetica", size=16)
 
-        self._error_variable = StringVar(self._frame)
+        self._error_variable = StringVar(self._main_frame)
 
         self._error_label = ttk.Label(
-            master=self._frame,
+            master=self._main_frame,
             textvariable=self._error_variable,
             font=error_font,
             foreground="red",
@@ -74,18 +74,18 @@ class AbstractCreateMoveView(ABC):
         r = self._initialize_fields() + 1
 
         action_button = ttk.Button(
-            master=self._frame,
+            master=self._main_frame,
             text=self._action_button_text,
             command=self._form_action_handler
         )
 
         go_to_moves_button = ttk.Button(
-            master=self._frame,
+            master=self._main_frame,
             text="Back",
             command=self._go_to_back_handler
         )
 
-        self._frame.grid_columnconfigure(0, weight=1, minsize=400)
+        self._main_frame.grid_columnconfigure(0, weight=1, minsize=400)
 
         go_to_moves_button.grid(row=r, column=0, padx=5, pady=5)
         action_button.grid(row=r, column=1, padx=5, pady=5)

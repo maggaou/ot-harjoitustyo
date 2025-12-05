@@ -5,17 +5,17 @@ from ui.abstract_create_move import AbstractCreateMoveView
 class EditMoveView(AbstractCreateMoveView):
     """Liikkeen muokkaamisen näkymä."""
 
-    def __init__(self, root, move, handle_edit_move, handle_show_moves):
+    def __init__(self, root, move, handle_edit_move, handle_back_button):
         """Luokan konstruktori.
 
         Args:
             root: tkinter ikkuna yms.
             move: muokattava liike (Move-objekti)
             handle_edit_move: näkymä tai toiminto liikkeen muokkaamisen jälkeen.
-            handle_show_moves: palaaminen takaisin päänäkymään.
+            handle_back_button: takaisin palaamisen toiminto.
         """
         super().__init__(root, lambda: handle_edit_move(
-            move.uid), handle_show_moves, "Confirm")
+            move.uid), handle_back_button, "Confirm")
         self._move = move
 
     def _form_action_handler(self):

@@ -99,7 +99,7 @@ class UI:
             self._root,
             move,
             self._show_move_view,
-            self._show_moves_view,
+            lambda: self._show_move_view(move.uid),
         )
 
         self._current_view.pack()
