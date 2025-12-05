@@ -5,7 +5,11 @@ from services.moves_service import moves_service
 
 
 class MovesListView:
-    """Liikkeiden lista-näkymä (osana näkymää MovesView)."""
+    """Liikkeiden listauksen näkymä.
+
+    Attributes:
+        moves: lista liikeistä (Move) jotka näytetään parhaillaan.
+    """
 
     def __init__(self, root, moves, handle_show_move_view):
         """Luokan konstruktori.
@@ -17,14 +21,16 @@ class MovesListView:
 
         """
 
+        self.moves = moves
         self._root = root
-        self._moves = moves
         self._handle_show_move_view = handle_show_move_view
         self._frame = None
 
-        self._initialize()
+        self.initialize()
 
-    def _initialize(self):
+    def initialize(self):
+        """Alusta moves-lista sen hetkisillä liikkeillä."""
+
         bold_font = font.Font(family="Helvetica", size=13, weight="bold")
         self._frame = ttk.Frame(master=self._root)
         added_label = ttk.Label(
@@ -46,7 +52,7 @@ class MovesListView:
         modified_label.grid(row=0, column=1, padx=20, sticky=constants.W)
         name_label.grid(row=0, column=2, padx=20, sticky=constants.W)
 
-        for row, move in enumerate(self._moves):
+        for row, move in enumerate(self.moves):
             self._initialize_move_item(move, row+1)
 
     def _initialize_move_item(self, move, row):
@@ -130,7 +136,7 @@ class MovesView:
         moves_service.logout()
         self._handle_logout()
 
-    def _initialize_moves_list(self):
+    def _initialize_moves_list(self, reorder=False):
         if self._moves_list_view:
             self._moves_list_view.destroy()
 
@@ -144,20 +150,29 @@ class MovesView:
                 datetime.strptime(x.date_submitted, "%d.%m.%Y %H:%M:%S")
             )
         }
-        moves = moves_service.return_all()
-
+        if not reorder:
+            moves = moves_service.return_all()
+        else:
+            moves = self._moves_list_view.moves
         if not moves:
             self._moves_list_view = ttk.Label(
                 self._moves_list_frame,
                 text="No moves created yet",
             )
-        else:
-            moves.sort(key=sort[self._sort_var.get()])
+            self._moves_list_view.pack()
+            return
+        
+        moves.sort(key=sort[self._sort_var.get()])
+        
+        if not reorder:
             self._moves_list_view = MovesListView(
                 self._moves_list_frame,
                 moves,
                 self._handle_show_move_view,
             )
+        else:
+            self._moves_list_view.initialize()
+
         self._moves_list_view.pack()
 
     def _initialize_header(self):
@@ -202,7 +217,7 @@ class MovesView:
                 text=sort,
                 value=sort,
                 variable=self._sort_var,
-                command=self._initialize_moves_list,
+                command=lambda: self._initialize_moves_list(True),
             ).pack(side=constants.LEFT)
 
         sort_frame.grid(row=1, padx=10, sticky=constants.W)
