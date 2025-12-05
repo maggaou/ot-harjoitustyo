@@ -161,9 +161,9 @@ class MovesView:
             )
             self._moves_list_view.pack()
             return
-        
+
         moves.sort(key=sort[self._sort_var.get()])
-        
+
         if not reorder:
             self._moves_list_view = MovesListView(
                 self._moves_list_frame,
