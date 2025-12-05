@@ -123,6 +123,8 @@ Huom. suorita `git checkout 4f2b2f98c64c93ba69896d216a0818d46b9c1c50` ennen ohje
     - näytä "Invalid URL: not an image file" jos linkki on toimiva mutta ei sisällä kuvaa
     - näytä "Image read timed out" jos http-kyselyyn ei tule vastausta aikarajan sisällä (0.5 sekuntia)
 - jos picture link kenttä on yli 350 merkkiä, niin näytä se useammalla rivillä
+- MovesView/järjestäminen: älä lataa liikkeitä uudestaan levyltä
+- EditMoveView: back button palaa takaisin Move-näkymään
 
 Testi linkkejä:
 
