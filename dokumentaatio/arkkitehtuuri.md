@@ -83,11 +83,57 @@ CREATE TABLE Users (
         );
 ```
 
-Tiedoston .env avulla sqliten käyttämä tiedostonimi on vaihdettavissa. Oletuksena on nimi `database.sqlite`. 
+Tiedoston .env avulla sqliten käyttämä tiedostonimi on vaihdettavissa. Oletuksena on nimi `database.sqlite`. En toteuttanut ohjelmaan toimintoja jotka hyödyntävät users-taulun name ja team kenttiä.
 
 ## Toiminnallisuudet
 
+### Käyttäjän kirjautuminen
+
+Kirjautuminen on toteuttu referenssisovelluksen tavoin. Sovellus käynnistyy moves-näkymään, minkä jälkeen käyttäjä painaa painiketta "Login/Create account". Sen jälkeen avautuu kirjautumisnäkymä. Kirjautumisnäkymän Login-painikkeen painaminen on kuvattu seuraavassa:
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant UI
+    participant MovesService
+    participant UserRepository
+    User->>UI: click "Login" button
+    UI->>MovesService: login("jaakko", "1234")
+    MovesService->>UserRepository: find_by_username("jaakko")
+    UserRepository-->>MovesService: user
+    MovesService-->>UI: login ok
+    UI->>UI: show_moves_view()
+```
+
+Painike käynnistää LoginView-näkymän metodin `login_handler` joka toteuttaa kirjautumisen MovesServicen avulla. Service-luokka hakee UserRepositoryn avulla käyttäjän annetun käyttäjänimen perusteella. Jos UserRepository palauttaa `None`, niin silloin service luokka palauttaa käyttöliittymälle virheen `InvalidCredentialsError`. Sama virhe palautetaan myös jos salasana on väärin. Kun kirjautuminen onnistuu, niin silloin käyttöliittymän näkymäksi vaihtuu moves-näkymä, jonne on ilmestynyt teksti "logged in as jaakko" ja painikkeet "Logout", "Create new".
+
+### Uuden käyttäjän luominen
+
+Uuden käyttäjän luominen on toteutettu referessinsovelluksen tavoin. Uuden käyttäjän luominen onnistuu kirjautumisnäkymästä painamalla "Create account". Sitten avautuu uuden käyttäjän luomisen näkymä, jossa on painike "Create new user". Seuraavassa on kuvattu "Create new user" painikkeen toiminta.
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant UI
+    participant MovesService
+    participant UserRepository
+    User->>UI: click "Create new user"<br/>button
+    UI->>MovesService: create_new_user("jaakko", "1234")
+    MovesService->>UserRepository: find_by_username("jaakko")
+    UserRepository-->>MovesService: None
+    create participant jaakko
+    MovesService->>jaakko: User("jaakko", "1234")
+    MovesService->>UserRepository: create(jaakko)
+    UserRepository-->>MovesService: user
+    MovesService-->>UI: create new user<br/>ok
+    UI->>UI: show_moves_view()
+```
+
+Painike käynnistää CreateUserView-näkymän metodin `create_user_handler` joka toteuttaa uuden käyttäjän luomisen MovesService-luokan avulla. Service-luokka hakee UserRepositoryn avulla käyttäjän annetun käyttäjänimen perusteella. Jos UserRepository palauttaa löydetyn käyttäjän, niin service-luokka palauttaa käyttöliittymälle virheen `UsernameExistsError`. Jos virhettä ei palauteta, niin silloin service-luokka luo User-olion (diagrammissa jaakko) ja tallentaa käyttäjän UserRepositoryn metodilla `create(jaakko)`. Tässä ei varsinaisesti tule esiin, miksi service-luokka luo User-olion, mutta `create_new_user` asettaa kirjautuneeksi käyttäjäksi tämän User-olion. Lopuksi näytetään moves-näkymä.
+
 ### Liikkeen luominen
+
+Liikkeen luominen tapahtuu päänäkymästä valitsemalla "Create new". Käyttäjän pitää olla ensin kirjautunut, jotta tämä painike on näkyvissä. Tämän jälkeen avautuu CreateMoveView-näkymä jossa on painikkeet "Back" ja "Create". Seuraavassa on kuvattu "Create" painikkeen toiminto.
 
 ```mermaid
 sequenceDiagram
@@ -95,12 +141,13 @@ sequenceDiagram
     participant UI
     participant MovesService
     participant MovesRepository
-    participant move
     User ->> UI: click "Create new"
     UI ->> MovesService: create_move(**args)
-    MovesService ->> move: args["original_creator"] = self._user.username<br/>Move(**args)
+    create participant move
+    MovesService ->> move: Move(**args)
     MovesService ->> MovesRepository: create(move)
     Note right of MovesRepository: move is now<br/>stored in the DB
+    MovesService -->> UI: create move<br/>ok
     UI ->> UI: show_moves_view()
     UI ->> UI: MovesView.<br/>initialize_moves_list()
     Note right of UI: UI finds all moves<br/>from disk
@@ -110,3 +157,24 @@ sequenceDiagram
     UI ->> UI: MovesView.pack()
 ```
 
+Painike käynnistää näkymän metodin `form_action_handler` joka käyttää MovesService-luokkaa liikkeen luomisessa. MovesService voi palauttaa virheet `MoveNameIsEmptyError` tai `TooShortMoveNameError`, jos liikkeen luominen ei onnistu. UI lisää parametreihin luontipäivän ja käyttäjän, ja kutsuu sitten MovesServicen metodia create_move(**args). MovesService luo liikkeen MovesRepositoryn avulla. Seuraavaksi tapahtuu liikkeiden näyttäminen, joka ei ole räätälöity liikkeen lisäämistä varten, vaan uusimmat liikkeet haetaan levyltä samalla tavoin kuten sovelluksen käynnistyksessä.
+
+### Liikkeiden järjestäminen
+
+Liikkeiden järjestäminen on moves-näkymän yksi toiminto. Liikkeiden järjestäminen tapahtuu pelkästään käyttöliittymän kahden luokan yhteistoiminnalla. Nämä ovat MovesView ja MovesListView. MovesListView sisällyttää attribuuttina liikkeet joita MovesView pystyy käsittelemään. Järjestämisen tapauksessa MovesView pyytää nämä liikkeet ja kutsuu sitten listan metodia `sort` sopivalla `key` parametrilla. Listan metodi `sort` on tässä tapauksessa sopiva, koska MovesListView säilyttää viittauksen samaan listaan. Lopuksi MovesListView kutsuu uudestaan metodia `initialize` jota kutsuttiin siis myös silloin kun lista näytettiin ensimmäisen kerran. Olen toteuttanut järjestämisen niin että se käynnistyy kutsulla `initialize_moves_list(reorder=True)` jolloin tässä tapauksessa listaa ei haeta levyltä uudestaan.
+
+
+```mermaid
+sequenceDiagram
+    actor User
+    participant UI
+    participant MovesView
+    participant MovesListView
+    User ->> UI: click a radio button<br/>e.g. "modified"
+    MovesView ->> MovesView: initialize_moves_list(reorder=True)
+    MovesView ->> MovesListview: moves()
+    MovesListView -->> MovesView: moves
+    note right of MovesView: moves.sort<br/>based on "modified"
+    MovesView ->> MovesListView: initialize()
+    note right of MovesView: moves_list_view.pack()
+```
