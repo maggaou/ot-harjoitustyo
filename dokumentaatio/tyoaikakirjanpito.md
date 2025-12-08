@@ -25,5 +25,12 @@
 | 24.11. | 399        | (6.5h) Tehty liikkeen poistaminen ja muita sekalaisia tehtäviä                                                                                                                                                                                                                       |
 | 25.11. | 439        | (7.5h) Tehty liikkeen muokkaaminen ja muokkaushistoria                                                                                                                                                                                                                               |
 | 26.11. | 180        | (3h) Sekvenssikaavio ja muita viikon tehtäviä.                                                                                                                                                                                                                                       |
+| 01.12. | 480        | (8h) Edellisen viikon palautus ja siihen liittyvät tehtävät, virheet liikkeen luonnissa/muokkauksessa, poista ylimääräiset välilyönnit lomaketiedoista, järjestämisen toiminto (ei vielä käyttöliittymässä)                                                                          |
+| 02.12. | 404        | (6h44min) Järjestäminen on käyttöliittymässä                                                                                                                                                                                                                                         |
+| 03.12. | 300        | (5h) Lataa kuva liike-näkymässä, docstrings työskentely                                                                                                                                                                                                                              |
+| 04.12. | 212        | (3.5h) Viikon palautuksen työskentely (dokumentaatio)                                                                                                                                                                                                                                |
+| 05.12. | 300        | (5h) Viikon palautuksen työskentely (dokumentaatio)                                                                                                                                                                                                                                  |
+| 08.12. | 180        | (3h) Viikon palautuksen työskentely (dokumentaatio)                                                                                                                                                                                                                                  |
 
-Yhteensä 64h
+
+Yhteensä 95h
