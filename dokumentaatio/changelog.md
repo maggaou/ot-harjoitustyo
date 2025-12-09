@@ -143,3 +143,27 @@ https://
 https://a
 (connection error)
 
+## Lopullinen palautus
+
+### Muutokset:
+
+#### Käyttäjän luominen:
+- näytä ohjeistus käyttäjänimen ja salasanan luonnille
+
+- Ohjeistus:
+    ```
+    Username requirements:
+    - at lest 4 characters long
+    - only lowercase letters
+    - no spaces
+
+    Password requirements:
+    - must be at least 8 characters
+    - only ASCII characters
+    ```
+
+- näytä virhe "Username: spaces are not allowed" jos käyttäjänimi sisältää välilyöntejä
+- näytä virhe "Username is too short" jos käyttäjänimi on liian lyhyt
+- näytä virhe "Password is too short" jos salasana on liian lyhyt
+- näytä virhe "Username: only small letters are allowed"
+- näytä virhe "Password has non-ASCII characters"
