@@ -8,6 +8,11 @@ from services.moves_service import (
     UsernameExistsError,
     MoveNameIsEmptyError,
     TooShortMoveNameError,
+    UsernameContainsCapitalLettersError,
+    TooShortUsernameError,
+    UsernameContainsSpacesError,
+    TooShortPasswordError,
+    PasswordIsNonAsciiError,
 )
 
 
@@ -68,7 +73,7 @@ class TestMovesService(unittest.TestCase):
 
         self.m1 = Move(content="mörkö")
         self.m2 = Move(content="pöö")
-        self.u1 = User(username="User1", password="1234")
+        self.u1 = User(username="user1", password="12345678")
 
     def login_user(self, user):
         self.moves_service.create_new_user(user.username, user.password)
@@ -118,10 +123,46 @@ class TestMovesService(unittest.TestCase):
     def test_create_new_user_with_existing_username(self):
         username = self.u1.username
 
-        self.moves_service.create_new_user(username, "1234")
+        self.moves_service.create_new_user(username, self.u1.password)
 
         self.assertRaises(UsernameExistsError,
-                          self.moves_service.create_new_user, username, '')
+                          self.moves_service.create_new_user, username, '12345678')
+
+    def test_create_new_user_with_capital_letters(self):
+        self.assertRaises(UsernameContainsCapitalLettersError,
+                          self.moves_service.create_new_user, "User1", '')
+        self.assertRaises(UsernameContainsCapitalLettersError,
+                          self.moves_service.create_new_user, "useR1", '')
+        self.assertRaises(UsernameContainsCapitalLettersError,
+                          self.moves_service.create_new_user, "USER", '')
+
+    def test_create_new_user_with_short_username(self):
+        self.assertRaises(TooShortUsernameError,
+                          self.moves_service.create_new_user, "aa", '')
+        self.assertRaises(TooShortUsernameError,
+                          self.moves_service.create_new_user, "a", '')
+
+    def test_create_new_user_with_spaces(self):
+        self.assertRaises(UsernameContainsSpacesError,
+                          self.moves_service.create_new_user, "aaaa ", '')
+        self.assertRaises(UsernameContainsSpacesError,
+                          self.moves_service.create_new_user, " aaaa", '')
+        self.assertRaises(UsernameContainsSpacesError,
+                          self.moves_service.create_new_user, "a aaa", '')
+
+    def test_create_new_user_with_short_password(self):
+        self.assertRaises(TooShortPasswordError,
+                          self.moves_service.create_new_user, "me_user", "1234567")
+
+    def test_create_new_user_with_non_ascii_password(self):
+        self.assertRaises(PasswordIsNonAsciiError,
+                          self.moves_service.create_new_user, "my_user", "öööööööööö")
+        self.assertRaises(PasswordIsNonAsciiError,
+                          self.moves_service.create_new_user, "my_user", "1234567å")
+        self.assertRaises(PasswordIsNonAsciiError,
+                          self.moves_service.create_new_user, "my_user", "1234567ä")
+        self.assertRaises(PasswordIsNonAsciiError,
+                          self.moves_service.create_new_user, "my_user", "привет123")
 
     def test_login_with_valid_username_and_password(self):
         self.moves_service.create_new_user(self.u1.username, self.u1.password)

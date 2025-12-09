@@ -14,15 +14,35 @@ class UsernameExistsError(Exception):
     pass
 
 
+class UsernameContainsCapitalLettersError(Exception):
+    pass
+
+
+class TooShortUsernameError(Exception):
+    pass
+
+
+class UsernameContainsSpacesError(Exception):
+    pass
+
+
+class TooShortPasswordError(Exception):
+    pass
+
+
+class PasswordIsNonAsciiError(Exception):
+    pass
+
+
+class TooShortMoveNameError(Exception):
+    pass
+
+
 class MoveNameIsEmptyError(Exception):
     pass
 
 
 class NothingHasChangedError(Exception):
-    pass
-
-
-class TooShortMoveNameError(Exception):
     pass
 
 
@@ -132,9 +152,33 @@ class MovesService:
         Raises:
             UsernameExistsError:
                 Ohjelma lähettää virheen jos käyttäjätunnus on jo käytössä.
+            UsernameContainsSpacesError:
+                Lähetä virhe jos username sisältää välilyöntejä.
+            TooShortUsernameError:
+                Lähetä virhe jos username on liian lyhyt.
+            UsernameContainsCapitalLettersError:
+                Salli ainoastaan pienet kirjaimet käyttäjänimessä.
+            TooShortPasswordError:
+                Salli ainoastaan salasana jonka pituus on vähintään 8 merkkiä.
+            PasswordIsNonAsciiError:
+                Salli ainoastaan salasana joka sisältää ASCII merkkejä.
         Returns:
             Palauttaa luodun käyttäjän (User-olio).
         """
+        if ' ' in username:
+            raise UsernameContainsSpacesError
+
+        if len(username) < 3:
+            raise TooShortUsernameError
+
+        if any(c.isupper() for c in username):
+            raise UsernameContainsCapitalLettersError
+
+        if len(password) < 8:
+            raise TooShortPasswordError
+
+        if not password.isascii():
+            raise PasswordIsNonAsciiError
 
         hi = self._user_repository.find_by_username(username)
 
