@@ -167,3 +167,7 @@ https://a
 - näytä virhe "Password is too short" jos salasana on liian lyhyt
 - näytä virhe "Username: only small letters are allowed"
 - näytä virhe "Password has non-ASCII characters"
+- piilota salasana oletuksena ja näytä se merkeillä ∗
+- näytä painike "show password" joka näyttää salasanan
+- vaihda painikkeen teksti "show password" <--> "hide password" välillä
+- sama painike on myös login-näkymässä
