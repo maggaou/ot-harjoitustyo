@@ -35,7 +35,7 @@ class CreateUserView:
         self._password_entry = None
         self._error_variable = None
         self._error_label = None
-
+        self._show_password_button = None
         self._initialize()
 
     def _initialize(self):
@@ -107,8 +107,16 @@ class CreateUserView:
                 "- only ASCII characters"
             )
         )
+        self._show_password_button = ttk.Button(
+            master=self._instrucstions_frame,
+            text="Show password",
+            command=self._show_password
+        )
+
         instructions_label_01.grid(pady=15, sticky=constants.W)
-        instructions_label_02.grid(sticky=constants.W)
+        instructions_label_02.grid(pady=30, sticky=constants.W)
+
+        self._show_password_button.grid(sticky=constants.W)
 
         # base frame
         self._instrucstions_frame.grid(
@@ -133,7 +141,10 @@ class CreateUserView:
     def _initialize_password_field(self):
         password_label = ttk.Label(master=self._forms_frame, text="Password")
 
-        self._password_entry = ttk.Entry(master=self._forms_frame)
+        self._password_entry = ttk.Entry(
+            master=self._forms_frame,
+            show='∗',
+        )
 
         password_label.grid(padx=10, pady=10)
         self._password_entry.grid(padx=10, pady=10)
@@ -165,3 +176,12 @@ class CreateUserView:
             self._show_error("Password is too short")
         except PasswordIsNonAsciiError:
             self._show_error("Password has non-ASCII characters")
+    
+    def _show_password(self):
+        if self._password_entry.cget('show') == '∗':
+            self._password_entry.config(show='')
+            self._show_password_button.config(text='Hide password')
+        else:
+            self._password_entry.config(show='∗')
+            self._show_password_button.config(text='Show password')
+    

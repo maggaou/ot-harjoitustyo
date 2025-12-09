@@ -25,6 +25,7 @@ class LoginView:
         self._password_entry = None
         self._error_variable = None
         self._error_label = None
+        self._show_password_button = None
 
         self._initialize()
 
@@ -44,6 +45,11 @@ class LoginView:
         self._initialize_username_field()
         self._initialize_password_field()
 
+        self._show_password_button = ttk.Button(
+            master=self._frame,
+            text="Show password",
+            command=self._show_password
+        )
         login_button = ttk.Button(
             master=self._frame,
             text="Login",
@@ -69,6 +75,7 @@ class LoginView:
 
         self._frame.grid_columnconfigure(0, weight=1, minsize=500)
 
+        self._show_password_button.grid()
         login_button.grid(padx=10, pady=5)
         or_label.grid(pady=5)
         create_user_button.grid(padx=10, pady=5)
@@ -94,7 +101,10 @@ class LoginView:
     def _initialize_password_field(self):
         password_label = ttk.Label(master=self._frame, text="Password")
 
-        self._password_entry = ttk.Entry(master=self._frame)
+        self._password_entry = ttk.Entry(
+            master=self._frame,
+            show='∗',
+        )
 
         password_label.grid(padx=10, pady=10)
 
@@ -117,3 +127,12 @@ class LoginView:
             self._handle_login()
         except InvalidCredentialsError:
             self._show_error("Invalid username or password")
+
+    def _show_password(self):
+        if self._password_entry.cget('show') == '∗':
+            self._password_entry.config(show='')
+            self._show_password_button.config(text='Hide password')
+        else:
+            self._password_entry.config(show='∗')
+            self._show_password_button.config(text='Show password')
+    
