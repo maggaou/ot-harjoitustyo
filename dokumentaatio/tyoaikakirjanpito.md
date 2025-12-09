@@ -31,6 +31,7 @@
 | 04.12. | 212        | (3.5h) Viikon palautuksen työskentely (dokumentaatio)                                                                                                                                                                                                                                |
 | 05.12. | 300        | (5h) Viikon palautuksen työskentely (dokumentaatio)                                                                                                                                                                                                                                  |
 | 08.12. | 180        | (3h) Viikon palautuksen työskentely (dokumentaatio)                                                                                                                                                                                                                                  |
+| 09.12. | 221        | (3.5h) Validointi/käyttäjän luominen. Piilota salasana käyttäjän luomisessa ja login-näkymässä. Show/hide password painike käyttäjän luomisessa ja login-näkymässä.                                                                                                                  |
 
 
-Yhteensä 95h
+Yhteensä 99h
