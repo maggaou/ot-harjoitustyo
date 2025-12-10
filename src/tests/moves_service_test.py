@@ -164,6 +164,12 @@ class TestMovesService(unittest.TestCase):
         self.assertRaises(PasswordIsNonAsciiError,
                           self.moves_service.create_new_user, "my_user", "привет123")
 
+    def test_create_new_user_with_3letters_is_allowed(self):
+        user = self.moves_service.create_new_user("moi", "12345678")
+        self.assertIsInstance(user, User)
+        self.assertTrue(user.username, "moi")
+        self.assertTrue(user.password, "12345678")
+        
     def test_login_with_valid_username_and_password(self):
         self.moves_service.create_new_user(self.u1.username, self.u1.password)
 

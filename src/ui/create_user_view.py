@@ -94,7 +94,7 @@ class CreateUserView:
             master=self._instrucstions_frame,
             text=(
                 "Username requirements:\n"
-                "- at lest 4 characters long\n"
+                "- at lest 3 characters long\n"
                 "- only lowercase letters\n"
                 "- no spaces"
             )
