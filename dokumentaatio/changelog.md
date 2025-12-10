@@ -153,7 +153,7 @@ https://a
 - Ohjeistus:
     ```
     Username requirements:
-    - at lest 4 characters long
+    - at lest 3 characters long
     - only lowercase letters
     - no spaces
 
