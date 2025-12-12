@@ -76,8 +76,6 @@ Käyttäjien tallennus on tehty ohjelman monipuolisuuden vuoksi SQLite:n avulla.
 
 ```txt
 CREATE TABLE Users (
-            name text,
-            team text,
             username text primary key,
             password text
         );

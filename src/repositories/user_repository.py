@@ -36,8 +36,8 @@ class UserRepository():
         cursor = self._connection.cursor()
 
         cursor.execute(
-            "INSERT INTO Users (name, team, username, password) VALUES (?, ?, ?, ?)",
-            (user.name, user.team, user.username, user.password)
+            "INSERT INTO Users (username, password) VALUES (?, ?)",
+            (user.username, user.password)
         )
 
         self._connection.commit()
@@ -83,8 +83,7 @@ class UserRepository():
 
 def _create_user_by_row(row):
     if row:
-        u = User(name=row["name"], team=row["team"],
-                 username=row["username"], password=row["password"])
+        u = User(username=row["username"], password=row["password"])
     else:
         u = None
     return u

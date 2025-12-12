@@ -169,7 +169,7 @@ class TestMovesService(unittest.TestCase):
         self.assertIsInstance(user, User)
         self.assertTrue(user.username, "moi")
         self.assertTrue(user.password, "12345678")
-        
+
     def test_login_with_valid_username_and_password(self):
         self.moves_service.create_new_user(self.u1.username, self.u1.password)
 
@@ -241,7 +241,7 @@ class TestMovesService(unittest.TestCase):
         self.assertRaises(TooShortMoveNameError,
                           self.moves_service.create_move, **args)
 
-    def test_create_move_with_extra_whitespace(self):
+    def test_create_move_with_extra_whitespace1(self):
         self.login_user(self.u1)
         args1 = {
             "name": "          "
@@ -258,3 +258,26 @@ class TestMovesService(unittest.TestCase):
                           self.moves_service.create_move, **args2)
         self.assertRaises(TooShortMoveNameError,
                           self.moves_service.create_move, **args3)
+
+    def test_create_move_with_extra_whitespace2(self):
+        self.login_user(self.u1)
+        args1 = {
+            "name": "    aaaaa      "
+        }
+        args2 = {
+            "name": "  bbbbb"
+        }
+        args3 = {
+            "name": "ccccc  "
+        }
+        self.moves_service.create_move(**args1)
+        self.moves_service.create_move(**args2)
+        self.moves_service.create_move(**args3)
+
+        moves = self.moves_service.return_all()
+        move_names = [move.name for move in moves]
+
+        self.assertTrue("aaaaa" in move_names)
+        self.assertTrue("bbbbb" in move_names)
+        self.assertTrue("ccccc" in move_names)
+

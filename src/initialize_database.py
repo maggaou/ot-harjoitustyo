@@ -28,8 +28,6 @@ def create_tables(connection):
 
     cursor.execute("""
         create table Users (
-            name text,
-            team text,
             username text primary key,
             password text
         );

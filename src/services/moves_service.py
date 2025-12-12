@@ -141,14 +141,12 @@ class MovesService:
         """Kirjaa käyttäjän ulos."""
         self._user = None
 
-    def create_new_user(self, username, password, name=None, team=None):
+    def create_new_user(self, username, password):
         """Luo uuden käyttäjän ja kirjaa tämän sisään.
 
         Args:
             username: käyttäjätunnus.
             password: salasana.
-            name: valmentajan nimi.
-            team: valmentajan seura.
         Raises:
             UsernameExistsError:
                 Ohjelma lähettää virheen jos käyttäjätunnus on jo käytössä.
@@ -186,7 +184,7 @@ class MovesService:
             raise UsernameExistsError(
                 f"Username {username} is already created")
 
-        user = User(name=name, team=team, username=username, password=password)
+        user = User(username=username, password=password)
 
         self._user = user
 

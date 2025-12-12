@@ -1,9 +1,6 @@
 from pathlib import Path
 import unittest
-from entities.age_group import AgeGroup
-from entities.difficulty import Difficulty
 from entities.move import Move
-from entities.style import Style
 from repositories.moves_repository import moves_repository
 
 
@@ -14,15 +11,6 @@ class TestMovesRepository(unittest.TestCase):
 
         self.m1 = Move(content="jeihou")
         self.m2 = Move(content="jööpöö")
-
-    def test_wrestling_style_as_string(self):
-        self.assertEqual(Style.GR, "Greco-Roman")
-
-    def test_age_group_as_string(self):
-        self.assertEqual(AgeGroup.SIX, "6 years old and above")
-
-    def test_difficulty_as_string(self):
-        self.assertEqual(Difficulty.BASIC, "basic")
 
     def test_write_move_works(self):
         self.moves_repository.create(self.m1)

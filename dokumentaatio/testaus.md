@@ -15,6 +15,8 @@ Repository-luokat ovat siis `MovesRepository` ja `UserRepository` joita testataa
 ### Testikattavuus
 Sovelluksen testauksen haarautumakattavuus on 93%. Tämä ei sisällä siis itse testejä tai käyttöliittymän koodia. Kuten referenssisovelluksessa, niin testeihin on sisällytetty turhaan `build.py` ja `initialize_database.py`. Myös `config.py` on turha.
 
+Edit: poistin `age_group.py`, `difficulty.py` ja `style.py` koska en toteuttanut niihin liittyen toimintoja.
+
 ![](./kuvat/moves-testikattavuus.png)
 
 MovesRepositoryn osalta ei testata kansion luomista jos sitä ei ole. MovesServicen osalta ei testata liikkeen muokkausta normaalissa tilanteessa (ainoastaan virhetilanteissa). Myös `delete_move` ja `find_by_uid` jäivät testaamatta servicen osalta (niiden toiminta on kuitenkin suoraan repositoryn vastaava toiminnallisuus). Raportissa on myös muita "missing" rivejä joita en tässä käy tarkemmin läpi.

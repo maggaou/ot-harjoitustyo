@@ -178,7 +178,7 @@ class MovesView:
     def _initialize_header(self):
         user_label = ttk.Label(
             master=self._frame,
-            text=f"Logged in as {self._user}" if self._user else "Not logged in"
+            text=f"Logged in as {self._user.username}" if self._user else "Not logged in"
         )
 
         logout_button = ttk.Button(
