@@ -6,8 +6,10 @@ Ohjelman tarkoitus on tallentaa painiliikkeitä joita valmentajat voivat jakaa k
 - [Viikko 6](https://github.com/maggaou/ot-harjoitustyo/releases/tag/viikko6)
 
 ## Dokumentaatio
+- [Käyttöohje](./dokumentaatio/kayttoohje.md)
 - [Vaatimusmäärittely](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/vaatimusmaarittely.md)
 - [Arkkitehtuurikuvaus](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/arkkitehtuuri.md)
+- [Testausdokumentti](./dokumentaatio/testaus.md)
 - [Työaikakirjanpito](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/tyoaikakirjanpito.md)
 - [Changelog](https://github.com/maggaou/ot-harjoitustyo/blob/main/dokumentaatio/changelog.md)
 
