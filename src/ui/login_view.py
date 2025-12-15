@@ -135,4 +135,3 @@ class LoginView:
         else:
             self._password_entry.config(show='∗')
             self._show_password_button.config(text='Show password')
-    

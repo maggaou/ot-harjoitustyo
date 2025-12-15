@@ -176,7 +176,7 @@ class CreateUserView:
             self._show_error("Password is too short")
         except PasswordIsNonAsciiError:
             self._show_error("Password has non-ASCII characters")
-    
+
     def _show_password(self):
         if self._password_entry.cget('show') == '∗':
             self._password_entry.config(show='')
@@ -184,4 +184,3 @@ class CreateUserView:
         else:
             self._password_entry.config(show='∗')
             self._show_password_button.config(text='Show password')
-    

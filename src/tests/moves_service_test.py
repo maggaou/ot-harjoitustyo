@@ -280,4 +280,3 @@ class TestMovesService(unittest.TestCase):
         self.assertTrue("aaaaa" in move_names)
         self.assertTrue("bbbbb" in move_names)
         self.assertTrue("ccccc" in move_names)
-
