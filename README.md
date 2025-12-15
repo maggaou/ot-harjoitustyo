@@ -4,6 +4,7 @@ Ohjelman tarkoitus on tallentaa painiliikkeitä joita valmentajat voivat jakaa k
 ## Releases
 - [Viikko 5](https://github.com/maggaou/ot-harjoitustyo/releases/tag/viikko5)
 - [Viikko 6](https://github.com/maggaou/ot-harjoitustyo/releases/tag/viikko6)
+- [loppupalautus](https://github.com/maggaou/ot-harjoitustyo/releases/tag/loppupalautus)
 
 ## Dokumentaatio
 - [Käyttöohje](./dokumentaatio/kayttoohje.md)
